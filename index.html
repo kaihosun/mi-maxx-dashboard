@@ -387,21 +387,186 @@
 
     <!-- Tab bar -->
     <div class="tab-bar" role="tablist">
-      <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="panel-1" onclick="showTab(1)">FFT</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-2" onclick="showTab(2)">OpenCell</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-3" onclick="showTab(3)">Técnicos (DMT)</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">B2B</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-5" onclick="showTab(5)">B2B-DMA</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-6" onclick="showTab(6)">B2C</button>
+      <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="panel-1" onclick="showTab(1)">Incoming</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-2" onclick="showTab(2)">Sorting</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-3" onclick="showTab(3)">FFT</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">OpenCell</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-5" onclick="showTab(5)">B2B</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-6" onclick="showTab(6)">B2B-SLG</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-7" onclick="showTab(7)">B2C</button>
     </div>
 
     <!-- Tab panels -->
     <div class="tab-panels">
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 1 — FFT (report_fft_sellable.html)
+           TAB 1 — Incoming (Reporte UPH - Incoming)
       ══════════════════════════════════════════════════════ -->
       <div class="tab-panel active" id="panel-1" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>Incoming Trailers — Pallets Received by Origin</h1>
+            <p>Receiving Dock &nbsp;·&nbsp; Dec 2025 – May 2026 &nbsp;·&nbsp; 32,555 pallets &nbsp;·&nbsp; 1,288 events</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">32,555</span>
+            <span class="kpi-label">Total Pallets Received</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab1Chart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Monthly Breakdown</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>US Origins</th>
+                  <th>Tijuana, BC</th>
+                  <th>Total Pallets</th>
+                  <th>Unload Hours</th>
+                  <th>Avg HC</th>
+                </tr>
+              </thead>
+              <tbody id="tab1TableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>31,164</td>
+                  <td>1,391</td>
+                  <td>32,555</td>
+                  <td>1,502.6</td>
+                  <td>8.3</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Volume Mix</div>
+                <div class="insight-title">US Origins account for 95.7% of all pallets — TV inventory from six DCs</div>
+                <div class="insight-body">31,164 of 32,555 total pallets came from US distribution centers: Spartanburg SC, Greenfield IN, Waco TX, Las Vegas NV, Johnstown NY, and Groesbeck TX. These are the raw TV units that feed the FFT, Sorting, and OpenCell lines.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">January 2026 Peak</div>
+                <div class="insight-title">8,931 US pallets in January — post-holiday DC clearance surge</div>
+                <div class="insight-body">January 2026 was the highest-volume month at 8,931 US pallets across 358 events and 510 total unloading hours. This aligns with the Q1 inventory push that drove FFT's February production peak of 30,212 sellable units.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Tijuana, BC</div>
+                <div class="insight-title">4.3% of pallets — insumos, OpenCell screens, lámparas inventory, and 3PL/last-mile product</div>
+                <div class="insight-body">Tijuana flows (1,391 pallets, 40 events) are semantically distinct from the TV inventory: they include insumos, pantallas for OpenCell screen swaps, lamp inventory, and the product base for 3PL and last-mile operations. May 2026 hit the highest Tijuana month (388 pallets, 9 events), tracking OpenCell's ongoing ramp.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Trend</div>
+                <div class="insight-title">US pallet volume down 54% from the January peak, stabilizing at ~4,000/month</div>
+                <div class="insight-body">After the January surge (8,931 pallets), US inbound normalized to 3,818–4,873 pallets/month through Feb–May 2026 — consistent with the lower FFT run rate seen post-peak. The dock averaged 2.5 workers per unloading event across all months.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: Reporte UPH MI Technologies MTY MAXX — Incoming · Dec 2025 – May 2026 · Tijuana includes insumos, OpenCell screens, lámparas, and 3PL product · Efficiency = pallets ÷ avg headcount/session · Report date: May 29, 2026</p>
+
+        </div>
+      </div><!-- /panel-1 -->
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 2 — Sorting (Reporte de Planta - Sorting)
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-2" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>Sorting — Unit Classification Summary</h1>
+            <p>Sorting Plant &nbsp;·&nbsp; Jul 2025 – May 2026 &nbsp;·&nbsp; 515,126 units processed</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">515,126</span>
+            <span class="kpi-label">Total Units Sorted</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tabSortingChart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Monthly Breakdown</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th style="text-align:right">PENDING</th>
+                  <th style="text-align:right">Non-Broken, Non-Working</th>
+                  <th style="text-align:right">Broken</th>
+                  <th style="text-align:right">Total</th>
+                </tr>
+              </thead>
+              <tbody id="tabSortingTableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td style="text-align:right">243,250</td>
+                  <td style="text-align:right">16,866</td>
+                  <td style="text-align:right">255,010</td>
+                  <td style="text-align:right">515,126</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Peak Month</div>
+                <div class="insight-title">January 2026 — 73,525 units, the highest single month on record</div>
+                <div class="insight-body">January 2026 was the top-volume month at 73,525 units sorted, driven by the post-holiday DC inventory push that also peaked Incoming pallets that month. Headcount ramped from 43.2 avg/day in December to 68.1 in January — a 58% labor increase that absorbed the surge.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Headcount Peak</div>
+                <div class="insight-title">March 2026 — 80.8 avg people/day (Day + Night), highest staffing level</div>
+                <div class="insight-body">Despite January having the highest unit volume, March 2026 had the highest headcount at 80.8 avg/day combined (vs. 77.5 in February). This reflects the Night shift fully ramping — March had the most Night-heavy days of any month, with several nights exceeding 50 people.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Broken — 49.5%</div>
+                <div class="insight-title">DMA and FRM account for 98.8% of Broken — both feed the B2B-SLG export channel</div>
+                <div class="insight-body">185,887 DMA and 68,858 FRM units (255,010 Broken total) are routed to UPT Inc and Calvary Corp via the B2B-SLG channel and to Recycling. The Night shift expansion in Jan–Mar 2026 correlates with the period of highest Broken volume, suggesting Night was dedicated to damage classification.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Trend</div>
+                <div class="insight-title">Volume and headcount both declining post-March — normalizing toward ~50k units/month</div>
+                <div class="insight-body">After the Jan–Mar 2026 peak, monthly volume fell from 66,461 (Mar) to 59,119 (Apr) and 49,124 (May), while headcount dropped from 80.8 to 68.0 to 61.4 avg/day. The ratio of ~800 units per person per month has held steady, indicating consistent line productivity across the full period.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: Reporte de Planta — Sorting · Jul 1 2025 – May 28 2026 · 515,126 units · 10 ClassificationCodes · Report date: May 29, 2026</p>
+
+        </div>
+      </div><!-- /panel-2 -->
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 3 — FFT (report_fft_sellable.html)
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-3" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
@@ -415,7 +580,7 @@
           </div>
 
           <div class="chart-wrapper">
-            <canvas id="tab1Chart"></canvas>
+            <canvas id="tab2Chart"></canvas>
           </div>
 
           <div class="table-section">
@@ -430,7 +595,7 @@
                   <th>Vizio %</th>
                 </tr>
               </thead>
-              <tbody id="tab1TableBody"></tbody>
+              <tbody id="tab2TableBody"></tbody>
               <tfoot>
                 <tr>
                   <td>Grand Total</td>
@@ -449,26 +614,26 @@
 
               <div class="insight-card">
                 <div class="insight-label">Overall Output</div>
-                <div class="insight-title">216,707 sellable units over 11 months</div>
-                <div class="insight-body">The FFT plant processed and certified a monthly average of 19,700 sellable units from July 2025 through May 2026, ranging from a low of 9,215 in July 2025 to a peak of 30,212 in February 2026.</div>
+                <div class="insight-title">216,707 sellable units over 11 months — 19,700 avg/month</div>
+                <div class="insight-body">The FFT plant processed and certified a monthly average of 19,700 sellable units from July 2025 through May 2026, ranging from a low of 9,215 in July 2025 to a peak of 30,212 in February 2026. Headcount data available from October 2025 onward.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Vizio Share</div>
-                <div class="insight-title">Vizio grew from 20% to a 35% share at peak, settling at 33% in May</div>
-                <div class="insight-body">In July 2025, Vizio represented 20.0% of sellable output (1,841 of 9,215 units). It peaked at 35.3% in January 2026 (10,574 of 27,776). By May 2026 it held 33.0% (6,373 of 19,304), nearly double its starting share.</div>
+                <div class="insight-label">Peak ≠ Most Efficient</div>
+                <div class="insight-title">February peak (137 HC, 30k units) was less efficient than March (96 HC, 252 u/person)</div>
+                <div class="insight-body">February 2026 had the highest headcount (137.4 people/day) and highest output (30,212 units) — but only 220 units per person per day. March dropped to 96 HC (−30%) and produced 252 u/person, the best efficiency on record. More people did not produce proportionally more.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Peak Month</div>
-                <div class="insight-title">February 2026 — 30,212 units, the highest single month</div>
-                <div class="insight-body">February reached 30,212 total sellable units, driven by both Vizio (10,687, its all-time monthly high) and Resto (19,525). This coincides with post-holiday inventory replenishment cycles pushing throughput to maximum certified volume.</div>
+                <div class="insight-label">Headcount Trend</div>
+                <div class="insight-title">HC fell 42% from Feb peak to May (137→80), production fell only 36%</div>
+                <div class="insight-body">As headcount normalized from 137 (Feb) to 80 (May), production held comparatively well: Apr–May average 19,928 units at 241 u/person/day. The team is operating more efficiently at smaller size — Oct 2025 had 127 HC but only 174 u/person, the lowest efficiency in the dataset.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Trend</div>
-                <div class="insight-title">Volume down 36% since the February peak, stabilizing above 19k</div>
-                <div class="insight-body">After the February 2026 peak of 30,212 units, output fell in March (−21%), April (−10%), and May (−3%). The last three months average 20,942 units, suggesting a stable new run rate rather than continued decline.</div>
+                <div class="insight-label">Optimal Range</div>
+                <div class="insight-title">85–100 HC delivers the best sustained efficiency — 241–252 u/person/day</div>
+                <div class="insight-body">Mar–May 2026 (96→85→80 HC) consistently produce 241–252 units per person per day — better than any higher-headcount month. The current run rate of ~80 people producing ~19k units/month appears to be the stable operational floor, not a degraded state.</div>
               </div>
 
             </div>
@@ -477,26 +642,26 @@
           <p class="footer-note">Source: FFT Plant · Sellable units only (non-sellable dispositions excluded) · Report date: May 28, 2026</p>
 
         </div>
-      </div><!-- /panel-1 -->
+      </div><!-- /panel-3 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 2 — OpenCell (report_opencell_new_tvs.html)
+           TAB 4 — OpenCell Dept. (Screen Swaps + DMT Repairs)
       ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-2" role="tabpanel">
+      <div class="tab-panel" id="panel-4" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
-            <h1>New TVs Generated — OpenCell Screen Swaps</h1>
-            <p>OpenCell Department &nbsp;·&nbsp; Jul 2025 – May 2026 &nbsp;·&nbsp; 22,297 units</p>
+            <h1>OpenCell Department — Screen Swaps &amp; DMT Repairs</h1>
+            <p>OpenCell Dept. &nbsp;·&nbsp; Jul 2025 – May 2026 &nbsp;·&nbsp; 37,370 units &nbsp;·&nbsp; Screen swaps · Repairs · Kit separation · Version capture</p>
           </div>
 
           <div class="kpi-hero">
-            <span class="kpi-value">22,297</span>
-            <span class="kpi-label">Total New TVs Manufactured</span>
+            <span class="kpi-value">37,370</span>
+            <span class="kpi-label">Total Units Processed — OpenCell Department</span>
           </div>
 
           <div class="chart-wrapper">
-            <canvas id="tab2Chart"></canvas>
+            <canvas id="tab4Chart"></canvas>
           </div>
 
           <div class="table-section">
@@ -505,111 +670,24 @@
               <thead>
                 <tr>
                   <th>Month</th>
-                  <th>New TVs</th>
-                  <th>vs. Active Avg</th>
+                  <th>Screen Swaps</th>
+                  <th>Panels In</th>
+                  <th>Repairs: Onn</th>
+                  <th>Repairs: Vizio</th>
+                  <th>Repairs: Resto</th>
+                  <th>Total</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr class="muted"><td>Jul 2025 (partial)</td><td>1,570</td><td>−29%</td></tr>
-                <tr><td>Aug 2025</td><td>2,992</td><td>+35%</td></tr>
-                <tr><td>Sep 2025</td><td>2,390</td><td>+8%</td></tr>
-                <tr><td>Oct 2025</td><td>2,546</td><td>+15%</td></tr>
-                <tr><td>Nov 2025</td><td>1,601</td><td>−28%</td></tr>
-                <tr><td>Dec 2025</td><td>1,424</td><td>−36%</td></tr>
-                <tr class="muted"><td>Jan 2026 (shutdown)</td><td>151</td><td>n/a</td></tr>
-                <tr><td>Feb 2026</td><td>2,261</td><td>+2%</td></tr>
-                <tr><td>Mar 2026</td><td>4,439</td><td>+100%</td></tr>
-                <tr><td>Apr 2026</td><td>2,461</td><td>+11%</td></tr>
-                <tr class="muted"><td>May 2026 (partial)</td><td>462</td><td>−79%</td></tr>
-              </tbody>
+              <tbody id="tab4TableBody"></tbody>
               <tfoot>
                 <tr>
                   <td>Grand Total</td>
                   <td>22,297</td>
-                  <td>&nbsp;</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-
-          <div class="insight-section">
-            <h2>Key Insights</h2>
-            <div class="insight-grid">
-
-              <div class="insight-card">
-                <div class="insight-label">Total Output</div>
-                <div class="insight-title">22,297 new TVs generated in 11 months</div>
-                <div class="insight-body">Excluding the January 2026 operational shutdown, the active monthly average is 2,215 units across 10 months — confirming a steady, if modest, screen-swap operation running in parallel with the main FFT line.</div>
-              </div>
-
-              <div class="insight-card">
-                <div class="insight-label">Peak Month</div>
-                <div class="insight-title">March 2026 — 4,439 units, 2× the active average</div>
-                <div class="insight-body">March is the only month to surpass 4,000 units and stands at double the 10-month average. No comparable spike in any adjacent month, suggesting a concentrated production push rather than a sustained ramp.</div>
-              </div>
-
-              <div class="insight-card">
-                <div class="insight-label">January 2026</div>
-                <div class="insight-title">Operational shutdown — 151 units, not a demand signal</div>
-                <div class="insight-body">January recorded only 151 units — 93% below the active average. This reflects a holiday and scheduling halt, consistent with the same pattern seen across other departments that month.</div>
-              </div>
-
-              <div class="insight-card">
-                <div class="insight-label">Recent Trend</div>
-                <div class="insight-title">Output pulled back to the active-average range post-March</div>
-                <div class="insight-body">April 2026 returned to 2,461 units (−45% from March, but in line with the annual average). May is a partial month at 462 units through May 28 — end-of-month volume will determine whether the pace held.</div>
-              </div>
-
-            </div>
-          </div>
-
-          <p class="footer-note">Source: OpenCell Dept. · Each row = 1 completed screen swap · Jan 2026 shutdown and partial months (Jul 2025, May 2026) noted · Report date: May 28, 2026</p>
-
-        </div>
-      </div><!-- /panel-2 -->
-
-      <!-- ══════════════════════════════════════════════════════
-           TAB 3 — Técnicos (DMT) placeholder
-      ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-3" role="tabpanel">
-        <div class="card">
-
-          <div class="card-header">
-            <h1>DMT Repairs by Month — Onn vs. Vizio vs. Rest of Brands</h1>
-            <p>Técnicos Department · Jul 2025 – May 2026 · 15,073 units repaired</p>
-          </div>
-
-          <div class="kpi-hero">
-            <span class="kpi-value">15,073</span>
-            <span class="kpi-label">Total TVs Repaired</span>
-          </div>
-
-          <div class="chart-wrapper">
-            <canvas id="tab3Chart"></canvas>
-          </div>
-
-          <div class="table-section">
-            <h2>Monthly Breakdown</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Onn</th>
-                  <th>Vizio</th>
-                  <th>Resto</th>
-                  <th>Total</th>
-                  <th>Onn+Vizio %</th>
-                </tr>
-              </thead>
-              <tbody id="tab3TableBody"></tbody>
-              <tfoot>
-                <tr>
-                  <td>Grand Total</td>
+                  <td>11,110</td>
                   <td>5,070</td>
                   <td>3,833</td>
                   <td>6,170</td>
-                  <td>15,073</td>
-                  <td>58.7%</td>
+                  <td>37,370</td>
                 </tr>
               </tfoot>
             </table>
@@ -620,41 +698,74 @@
             <div class="insight-grid">
 
               <div class="insight-card">
-                <div class="insight-label">Brand Mix</div>
-                <div class="insight-title">Onn and Vizio account for 58.7% of all DMT repairs</div>
-                <div class="insight-body">Onn leads with 5,070 units (33.6%) and Vizio follows at 3,833 (25.4%). The remaining 6,170 units span 25 other brands — Samsung (2,228), TCL (1,930), and Hisense (830) being the next largest.</div>
+                <div class="insight-label">Combined Output</div>
+                <div class="insight-title">37,370 units processed — screen swaps (60%) and repairs (40%) running in parallel</div>
+                <div class="insight-body">The OpenCell department delivered 22,297 new TVs from screen swaps and 15,073 DMT repairs Jul 2025–May 2026. Both sub-operations ran simultaneously, each feeding separate output streams — new inventory from swaps, repaired units from DMT.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Ramp-Up</div>
-                <div class="insight-title">Volume tripled from Q3 2025 to May 2026</div>
-                <div class="insight-body">Average monthly repairs in Jul–Sep 2025 was 894 units. By Apr–May 2026 the operation reached 2,221 and 3,068 units respectively — the highest months on record, suggesting sustained capacity growth across the full period.</div>
+                <div class="insight-label">Screen Swap Peak</div>
+                <div class="insight-title">March 2026 — 4,439 new TVs, the only month above 4,000 and 2× the active average</div>
+                <div class="insight-body">Excluding January 2026 (lack of screens), the 10-month average is 2,215 swaps/month. March hit 4,439 — a concentrated production push. No comparable spike in adjacent months suggests a deliberate batch run, not a sustained ramp.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Vizio Trend</div>
-                <div class="insight-title">Vizio surpassed Onn in Feb–Mar 2026 before both peaked in May</div>
-                <div class="insight-body">From Jul 2025 to Jan 2026 Onn consistently led Vizio. In February and March 2026 Vizio overtook Onn (343 vs 267, 363 vs 344). Both converged sharply in Apr–May 2026, with Onn reclaiming the lead at 999 vs 970 in May.</div>
+                <div class="insight-label">Repair Acceleration</div>
+                <div class="insight-title">DMT repairs tripled — from ~900/month in Q3 2025 to 3,068 in May 2026</div>
+                <div class="insight-body">Average monthly repairs in Jul–Sep 2025 was 894 units. By April–May 2026 the operation reached 2,221 and 3,068 respectively — the highest months on record. May 2026 already surpasses every prior month with the month still open.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Acceleration</div>
-                <div class="insight-title">May 2026 is the peak at 3,068 units — with the month still open</div>
-                <div class="insight-body">May 2026 (through May 28) already surpassed every prior month at 3,068 units, up 38% from April's 2,221. If the pace holds through month-end, May will close well above 3,000 — establishing a new operational baseline for Q2 2026.</div>
+                <div class="insight-label">Independent Supply Chains</div>
+                <div class="insight-title">January 2026 — swaps dropped to 151 units, repairs held at 934 — two ops, two inputs</div>
+                <div class="insight-body">The January screen shortage brought swaps to near-zero without affecting DMT. Repairs depend on incoming broken TVs; swaps depend on screen inventory. A disruption in one does not cascade to the other — an operational resilience worth preserving.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Brand Concentration</div>
+                <div class="insight-title">Onn + Vizio = 58.7% of DMT repairs — Samsung, TCL, Hisense complete the Top 5</div>
+                <div class="insight-body">Of 15,073 total repairs, Onn accounts for 5,070 (33.6%) and Vizio for 3,833 (25.4%). Samsung (2,228), TCL (1,930), and Hisense (830) are next. The top 5 brands represent 91.8% of all repair volume — planning capacity around them covers the vast majority of throughput.</div>
               </div>
 
             </div>
           </div>
 
-          <p class="footer-note">Source: Técnicos sheet · Each row = 1 unit repaired · 27 brands total · Report date: May 28, 2026</p>
+          <div class="table-section" style="margin-top:2rem">
+            <h2>Headcount by Activity — How the Dept. Deploys Its People</h2>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab4HCChart"></canvas>
+          </div>
+
+          <div class="insight-section">
+            <h2>Headcount Insight</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Activity Shift</div>
+                <div class="insight-title">OpenCell dominated Oct–Dec 2025; DMT took over from Jan 2026 and peaked at 246 in May</div>
+                <div class="insight-body">The dept started as primarily a screen-swap operation (OpenCell = 60–70% of HC in Oct–Dec 2025). From January 2026, DMT repairs became the primary headcount absorber. By May 2026, DMT (246) represents 59% of the total department headcount — a structural rebalancing, not a temporary spike.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">New Activities</div>
+                <div class="insight-title">Kits (Mar 2026) and Versiones (Feb 2026) signal operational expansion — not just volume growth</div>
+                <div class="insight-body">Kit separation (Kits/OC) appeared in March 2026 and grew to 129 person-days in April — the third-largest activity by May. Version capture (Versiones/OC) began in February. These are new structured activities, not ad-hoc assignments, which means the dept's operational footprint is actively expanding.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: OpenCell Dept. · Screen swaps: each row = 1 completed swap · DMT Repairs: each row = 1 unit repaired · 27 brands total · Jan 2026 lack of screens noted · Headcount: sum of daily HC assignments per activity per month · Report date: May 28, 2026</p>
 
         </div>
-      </div><!-- /panel-3 -->
+      </div><!-- /panel-4 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 4 — B2B (report_units_delivered.html)
+           TAB 5 — B2B (report_units_delivered.html)
       ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-4" role="tabpanel">
+      <div class="tab-panel" id="panel-5" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
@@ -663,17 +774,17 @@
           </div>
 
           <div class="kpi-hero">
-            <span class="kpi-value">359,354</span>
+            <span class="kpi-value">281,400</span>
             <span class="kpi-label">Total Sales by Market Segment</span>
           </div>
 
           <div class="chart-wrapper">
-            <canvas id="tab4Chart"></canvas>
+            <canvas id="tab5Chart"></canvas>
           </div>
 
           <div class="table-section">
             <h2>Summary by Category</h2>
-            <table id="tab4SummaryTable">
+            <table id="tab5SummaryTable">
               <thead>
                 <tr>
                   <th>Category</th>
@@ -681,11 +792,11 @@
                   <th>% of Total</th>
                 </tr>
               </thead>
-              <tbody id="tab4SummaryBody"></tbody>
+              <tbody id="tab5SummaryBody"></tbody>
               <tfoot>
                 <tr>
                   <td>Grand Total</td>
-                  <td id="tab4GrandTotalUnits"></td>
+                  <td id="tab5GrandTotalUnits"></td>
                   <td>100.0%</td>
                 </tr>
               </tfoot>
@@ -717,7 +828,7 @@
               <div class="insight-card">
                 <div class="insight-label">Business Mix</div>
                 <div class="insight-title">TRG accounts for 31% of volume as a service client, not a return flow</div>
-                <div class="insight-body">B2C General (1,850 units) are out-of-channel returns — distinct from marketplace B2C, which stays under 0.6% of total volume.</div>
+                <div class="insight-body">Direct Fulfillment (1,850 units) are off-platform resolutions — seller contacts the end customer directly to ship a replacement part or unit outside the formal marketplace flow, without a return order being raised.</div>
               </div>
 
             </div>
@@ -726,26 +837,26 @@
           <p class="footer-note">Note: "Interal Use" (typo in source) merged into "Internal Use". Rows with 0 units included in axis.</p>
 
         </div>
-      </div><!-- /panel-4 -->
+      </div><!-- /panel-5 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 5 — B2B-DMA (report_b2b_dma.html)
+           TAB 6 — B2B-SLG (report_b2b_dma.html)
       ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-5" role="tabpanel">
+      <div class="tab-panel" id="panel-6" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
-            <h1>B2B-DMA Shipments by Month — UPT Inc vs. Calvary Corp</h1>
-            <p>B2B DMA Channel · Jul 2025 – May 2026 · 39,686 units shipped</p>
+            <h1>B2B-SLG Shipments by Month — UPT Inc vs. Calvary Corp</h1>
+            <p>B2B SLG Channel · Jul 2025 – May 2026 · 39,686 units shipped</p>
           </div>
 
           <div class="kpi-hero">
             <span class="kpi-value">39,686</span>
-            <span class="kpi-label">Total DMA TV Exports</span>
+            <span class="kpi-label">Total SLG TV Exports</span>
           </div>
 
           <div class="chart-wrapper">
-            <canvas id="tab5Chart"></canvas>
+            <canvas id="tab6Chart"></canvas>
           </div>
 
           <div class="table-section">
@@ -760,7 +871,7 @@
                   <th>Calvary %</th>
                 </tr>
               </thead>
-              <tbody id="tab5TableBody"></tbody>
+              <tbody id="tab6TableBody"></tbody>
               <tfoot>
                 <tr>
                   <td>Grand Total</td>
@@ -779,8 +890,8 @@
 
               <div class="insight-card">
                 <div class="insight-label">Client Mix</div>
-                <div class="insight-title">UPT Inc drives 88.2% of DMA volume — Calvary joined in Jan 2026</div>
-                <div class="insight-body">UPT Inc has been the sole DMA client since July 2025 with 34,988 units across 11 months. Calvary Corp entered in January 2026 and added 4,698 units over 4 months, expanding total DMA capacity without displacing UPT volume.</div>
+                <div class="insight-title">UPT Inc drives 88.2% of SLG volume — Calvary joined in Jan 2026</div>
+                <div class="insight-body">UPT Inc has been the sole SLG client since July 2025 with 34,988 units across 11 months. Calvary Corp entered in January 2026 and added 4,698 units over 4 months, expanding total SLG capacity without displacing UPT volume.</div>
               </div>
 
               <div class="insight-card">
@@ -797,7 +908,7 @@
 
               <div class="insight-card">
                 <div class="insight-label">Trend</div>
-                <div class="insight-title">Combined DMA volume stabilizing around 3,400 units/month in 2026</div>
+                <div class="insight-title">Combined SLG volume stabilizing around 3,400 units/month in 2026</div>
                 <div class="insight-body">Excluding the January 2026 spike, the Feb–May 2026 average is 3,403 combined units/month (UPT + Calvary). UPT's baseline has recovered to ~2,500–3,700/month after the post-January dip, consistent with its H2 2025 pace.</div>
               </div>
 
@@ -807,26 +918,26 @@
           <p class="footer-note">Source: MTY UPT inc Shipments · 2 Calvary rows (2026-05-29, qty pending) excluded · Report date: May 28, 2026</p>
 
         </div>
-      </div><!-- /panel-5 -->
+      </div><!-- /panel-6 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 6 — B2C (report_b2c_orders.html)
+           TAB 7 — B2C (report_b2c_orders.html)
       ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-6" role="tabpanel">
+      <div class="tab-panel" id="panel-7" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
-            <h1>B2C TV Orders by Month — MercadoLibre vs. Amazon</h1>
-            <p>Shipping B2C · Jul 2025 – May 2026 · 40,526 units shipped</p>
+            <h1>B2C Sales by Channel — Daily Orders &amp; Bulk Shipments</h1>
+            <p>Shipping B2C · Jul 2025 – May 2026 · 118,480 units shipped</p>
           </div>
 
           <div class="kpi-hero">
-            <span class="kpi-value">40,526</span>
-            <span class="kpi-label">Total e-Commerce Fulfilled Sales</span>
+            <span class="kpi-value">118,480</span>
+            <span class="kpi-label">Total B2C Units Shipped</span>
           </div>
 
           <div class="chart-wrapper">
-            <canvas id="tab6Chart"></canvas>
+            <canvas id="tab7Chart"></canvas>
           </div>
 
           <div class="table-section">
@@ -835,22 +946,24 @@
               <thead>
                 <tr>
                   <th>Month</th>
-                  <th>MercadoLibre</th>
-                  <th>Amazon</th>
-                  <th>Other</th>
+                  <th>ML · Daily</th>
+                  <th>ML · FULL (Bulk)</th>
+                  <th>Amazon · Daily</th>
+                  <th>Amazon · FBA (Bulk)</th>
+                  <th>Direct Fulfillment</th>
                   <th>Total</th>
-                  <th>ML %</th>
                 </tr>
               </thead>
-              <tbody id="tab6TableBody"></tbody>
+              <tbody id="tab7TableBody"></tbody>
               <tfoot>
                 <tr>
                   <td>Grand Total</td>
                   <td>26,372</td>
+                  <td>25,795</td>
                   <td>14,108</td>
-                  <td>46</td>
-                  <td>40,526</td>
-                  <td>65.1%</td>
+                  <td>50,309</td>
+                  <td>1,850</td>
+                  <td>118,480</td>
                 </tr>
               </tfoot>
             </table>
@@ -862,8 +975,8 @@
 
               <div class="insight-card">
                 <div class="insight-label">Channel Mix</div>
-                <div class="insight-title">MercadoLibre leads B2C — 65.1% of all units shipped</div>
-                <div class="insight-body">MercadoLibre accounts for 26,372 of 40,526 units across 11 months, consistently outpacing Amazon in every single month. Amazon (14,108 units, 34.8%) operates through Autobot seller accounts. Other channels total just 46 units.</div>
+                <div class="insight-title">118,480 total B2C units — MercadoLibre leads on both daily orders and FULL bulk</div>
+                <div class="insight-body">MercadoLibre accounts for 52,167 units (44.0%): 26,372 daily orders + 25,795 FULL bulk shipments. Amazon accounts for 64,417 units (54.4%): 14,108 daily orders + 50,309 FBA bulk. Direct Fulfillment adds 1,850 units via off-platform resolutions. Bulk shipments (FBA + FULL) represent 64.5% of total B2C volume.</div>
               </div>
 
               <div class="insight-card">
@@ -890,7 +1003,7 @@
           <p class="footer-note">Source: Shipping B2C-TVs · MercadoLibre via source column (apantallatemx, MiTechnologiesComercial, lutemamexico) · Amazon via Autobot accounts · Report date: May 28, 2026</p>
 
         </div>
-      </div><!-- /panel-6 -->
+      </div><!-- /panel-7 -->
 
     </div><!-- /tab-panels -->
   </div><!-- /tab-shell -->
@@ -899,7 +1012,7 @@
        TAB NAVIGATION
   ══════════════════════════════════════════════════════════════ -->
   <script>
-  const TAB_COUNT = 6;
+  const TAB_COUNT = 7;
   const initialized = {};
 
   function showTab(n) {
@@ -941,12 +1054,13 @@
   ══════════════════════════════════════════════════════════════ -->
   <script>
   function initChart(tabNum) {
-    if (tabNum === 1) { initTab1(); }
-    else if (tabNum === 2) { initTab2(); }
-    else if (tabNum === 3) { initTab3(); }
-    else if (tabNum === 4) { initTab4(); }
+    if (tabNum === 1) { initIncoming(); }
+    else if (tabNum === 2) { initSorting(); }
+    else if (tabNum === 3) { initTab2(); }
+    else if (tabNum === 4) { initOpenCellDept(); }
     else if (tabNum === 5) { initTab5(); }
     else if (tabNum === 6) { initTab6(); }
+    else if (tabNum === 7) { initTab7(); }
   }
 
   // ── SHARED MONTH FORMATTER ────────────────────────────────────
@@ -958,50 +1072,80 @@
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 1 — FFT Sellable
+  // TAB 2 — Sorting (classification by group)
   // ════════════════════════════════════════════════════════
-  function initTab1() {
+  function initSorting() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var VIZIO = [1841, 1143, 2401, 5017, 6043, 6923, 10574, 10687, 6265, 5661, 6373];
-    var RESTO = [7374, 6232, 8790, 17156, 18178, 13619, 17202, 19525, 17881, 14891, 12931];
+    var PENDING    = [6019,8021,12457,21486,21137,20797,34447,33053,34178,28936,22719];
+    var NBNW       = [440,90,216,905,1251,783,2233,3527,3167,2353,1901];
+    var BROKEN     = [10459,9051,17644,23629,21371,26577,36845,27984,29116,27830,24504];
+    var TOTAL      = [16918,17162,30317,46020,43759,48157,73525,64564,66461,59119,49124];
+    var AVG_HC     = [null,null,null,49.6,53.4,43.2,68.1,77.5,80.8,68.0,61.4];
     var LABELS = MONTHS_RAW.map(formatMonth);
 
-    var ctx = document.getElementById("tab1Chart").getContext("2d");
+    var ctx = document.getElementById("tabSortingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
         labels: LABELS,
         datasets: [
           {
-            label: "Resto",
-            data: RESTO,
-            backgroundColor: "#8eb8d4",
-            borderColor: "rgba(0,0,0,0.15)",
-            borderWidth: 0.5,
-            borderRadius: 2,
-            borderSkipped: false,
-            order: 2
-          },
-          {
-            label: "Vizio",
-            data: VIZIO,
+            label: "Broken",
+            data: BROKEN,
             backgroundColor: "#1e5f99",
             borderColor: "rgba(0,0,0,0.15)",
             borderWidth: 0.5,
             borderRadius: 2,
             borderSkipped: false,
-            order: 1
+            order: 3,
+            yAxisID: "yLeft"
+          },
+          {
+            label: "Non-Broken, Non-Working",
+            data: NBNW,
+            backgroundColor: "#5b9bd5",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 2,
+            yAxisID: "yLeft"
+          },
+          {
+            label: "PENDING",
+            data: PENDING,
+            backgroundColor: "#8eb8d4",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 1,
+            yAxisID: "yLeft"
           },
           {
             type: "line", label: "Total",
-            data: [9215,7375,11191,22173,24221,20542,27776,30212,24146,20552,19304],
+            data: TOTAL,
             borderColor: "#c0392b", backgroundColor: "transparent",
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
             tension: 0.3, fill: false, order: 0,
+            yAxisID: "yLeft",
             datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
               font: { size: 10, weight: "600" },
               formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          },
+          {
+            type: "line", label: "Avg Headcount / Day",
+            data: AVG_HC,
+            borderColor: "#e07b39", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#e07b39",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 1,
+            yAxisID: "yRight",
+            spanGaps: false,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#e07b39",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v !== null ? v : ""; } }
           }
         ]
       },
@@ -1025,32 +1169,326 @@
             callbacks: {
               label: function(context) {
                 var v = context.parsed.y;
+                if (context.dataset.label === "Avg Headcount / Day") {
+                  return v !== null ? " Headcount: " + v + " people/day" : null;
+                }
                 return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
               },
               footer: function(items) {
-                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
-                return "Total: " + total.toLocaleString();
+                var bars = items.filter(function(i){ return i.dataset.yAxisID === "yLeft" && i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total.toLocaleString() : null;
               }
             }
           }
         },
         scales: {
           x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
-          y: {
+          yLeft: {
+            type: "linear", position: "left",
             stacked: true,
+            beginAtZero: true,
+            grid: { color: "#e0e0e0" },
+            ticks: {
+              color: "#444", font: { size: 11 },
+              callback: function(v) { return v >= 1000 ? (v/1000).toFixed(0)+"k" : v; }
+            },
+            title: { display: true, text: "Units Sorted", color: "#555", font: { size: 11 } }
+          },
+          yRight: {
+            type: "linear", position: "right",
+            beginAtZero: true,
+            grid: { drawOnChartArea: false },
+            ticks: { color: "#e07b39", font: { size: 11 } },
+            title: { display: true, text: "Avg Headcount / Day", color: "#e07b39", font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    var tbody = document.getElementById("tabSortingTableBody");
+    if (tbody) {
+      MONTHS_RAW.forEach(function(m, i) {
+        var total = PENDING[i] + NBNW[i] + BROKEN[i];
+        var tr = document.createElement("tr");
+        tr.innerHTML =
+          "<td>" + formatMonth(m) + "</td>" +
+          "<td style='text-align:right'>" + PENDING[i].toLocaleString() + "</td>" +
+          "<td style='text-align:right'>" + NBNW[i].toLocaleString() + "</td>" +
+          "<td style='text-align:right'>" + BROKEN[i].toLocaleString() + "</td>" +
+          "<td style='text-align:right'>" + total.toLocaleString() + "</td>";
+        tbody.appendChild(tr);
+      });
+    }
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 1 — Incoming (pallets by origin)
+  // ════════════════════════════════════════════════════════
+  function initIncoming() {
+    var MONTHS_RAW  = ["2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var PALLETS_US  = [5229, 8931, 4873, 4175, 3818, 4138];
+    var PALLETS_TIJ = [283, 232, 123, 114, 251, 388];
+    var TOTAL       = [5512, 9163, 4996, 4289, 4069, 4526];
+    var HOURS       = [237.93, 510.07, 205.52, 155.48, 191.65, 201.92];
+    // Avg headcount/session from labor data (Dec-May)
+    var HC          = [7.0, 7.5, 9.7, 9.1, 8.5, 7.8];
+    var LABELS = MONTHS_RAW.map(formatMonth);
+
+    var ctx = document.getElementById("tab1Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: LABELS,
+        datasets: [
+          {
+            label: "US Origins",
+            data: PALLETS_US,
+            backgroundColor: "#1e5f99",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 3,
+            yAxisID: "yLeft"
+          },
+          {
+            label: "Tijuana, BC",
+            data: PALLETS_TIJ,
+            backgroundColor: "#8eb8d4",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 2,
+            yAxisID: "yLeft"
+          },
+          {
+            type: "line", label: "Total",
+            data: TOTAL,
+            borderColor: "#c0392b", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 0,
+            yAxisID: "yLeft",
+            datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          },
+          {
+            type: "line", label: "Avg Headcount",
+            data: HC,
+            borderColor: "#e07b39", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#e07b39",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 1,
+            yAxisID: "yRight",
+            datalabels: { display: true, align: "top", anchor: "end", color: "#e07b39",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v; } }
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          datalabels: { display: false },
+          legend: {
+            position: "top",
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12, usePointStyle: false }
+          },
+          tooltip: {
+            backgroundColor: "#ffffff",
+            borderColor: "#d0d0d0",
+            borderWidth: 1,
+            titleColor: "#1a1a2e",
+            bodyColor: "#333",
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                var v = context.parsed.y;
+                if (context.dataset.label === "Avg Headcount") {
+                  return " Headcount: " + v + " people/day";
+                }
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total.toLocaleString() : null;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          yLeft: {
+            type: "linear", position: "left",
+            stacked: true,
+            beginAtZero: true,
+            grid: { color: "#e0e0e0" },
+            ticks: {
+              color: "#444", font: { size: 11 },
+              callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
+            },
+            title: { display: true, text: "Pallets", color: "#555", font: { size: 11 } }
+          },
+          yRight: {
+            type: "linear", position: "right",
+            beginAtZero: true,
+            grid: { drawOnChartArea: false },
+            ticks: { color: "#e07b39", font: { size: 11 } },
+            title: { display: true, text: "Avg Headcount", color: "#e07b39", font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    // Build monthly table
+    var tbody = document.getElementById("tab1TableBody");
+    MONTHS_RAW.forEach(function(ym, i) {
+      var us  = PALLETS_US[i];
+      var tij = PALLETS_TIJ[i];
+      var tot = us + tij;
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>" + formatMonth(ym) + "</td>" +
+        "<td>" + us.toLocaleString() + "</td>" +
+        "<td>" + tij.toLocaleString() + "</td>" +
+        "<td>" + tot.toLocaleString() + "</td>" +
+        "<td>" + HOURS[i].toFixed(1) + "h</td>" +
+        "<td>" + HC[i].toFixed(1) + "</td>";
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 2 — FFT Sellable
+  // ════════════════════════════════════════════════════════
+  function initTab2() {
+    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var VIZIO = [1841, 1143, 2401, 5017, 6043, 6923, 10574, 10687, 6265, 5661, 6373];
+    var RESTO = [7374, 6232, 8790, 17156, 18178, 13619, 17202, 19525, 17881, 14891, 12931];
+    // Avg headcount/day (Day+Night combined). Jul-Sep: no data
+    var AVG_HC = [null, null, null, 127.2, 112.8, 90.5, 116.3, 137.4, 96.0, 85.4, 79.8];
+    var LABELS = MONTHS_RAW.map(formatMonth);
+
+    var ctx = document.getElementById("tab2Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: LABELS,
+        datasets: [
+          {
+            label: "Resto",
+            data: RESTO,
+            backgroundColor: "#8eb8d4",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 3,
+            yAxisID: "yLeft"
+          },
+          {
+            label: "Vizio",
+            data: VIZIO,
+            backgroundColor: "#1e5f99",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 2,
+            yAxisID: "yLeft"
+          },
+          {
+            type: "line", label: "Total",
+            data: [9215,7375,11191,22173,24221,20542,27776,30212,24146,20552,19304],
+            borderColor: "#c0392b", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 0,
+            yAxisID: "yLeft",
+            datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          },
+          {
+            type: "line", label: "Avg Headcount / Day",
+            data: AVG_HC,
+            borderColor: "#e07b39", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#e07b39",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 1,
+            yAxisID: "yRight",
+            spanGaps: false,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#e07b39",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v !== null ? v : ""; } }
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          datalabels: { display: false },
+          legend: {
+            position: "top",
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12, usePointStyle: false }
+          },
+          tooltip: {
+            backgroundColor: "#ffffff",
+            borderColor: "#d0d0d0",
+            borderWidth: 1,
+            titleColor: "#1a1a2e",
+            bodyColor: "#333",
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                var v = context.parsed.y;
+                if (context.dataset.label === "Avg Headcount / Day") {
+                  return v !== null ? " Headcount: " + v + " people/day" : null;
+                }
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var bars = items.filter(function(i){ return i.dataset.yAxisID === "yLeft" && i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total.toLocaleString() : null;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          yLeft: {
+            type: "linear", position: "left",
+            stacked: true,
+            beginAtZero: true,
             grid: { color: "#e0e0e0" },
             ticks: {
               color: "#444", font: { size: 11 },
               callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
             },
             title: { display: true, text: "Sellable Units", color: "#555", font: { size: 11 } }
+          },
+          yRight: {
+            type: "linear", position: "right",
+            beginAtZero: true,
+            grid: { drawOnChartArea: false },
+            ticks: { color: "#e07b39", font: { size: 11 } },
+            title: { display: true, text: "Avg Headcount / Day", color: "#e07b39", font: { size: 11 } }
           }
         }
       }
     });
 
     // Build summary table
-    var tbody = document.getElementById("tab1TableBody");
+    var tbody = document.getElementById("tab2TableBody");
     MONTHS_RAW.forEach(function(ym, i) {
       var vizio = VIZIO[i];
       var resto = RESTO[i];
@@ -1068,48 +1506,88 @@
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 2 — OpenCell New TVs
+  // TAB 4 — OpenCell Dept. (Screen Swaps + DMT Repairs)
   // ════════════════════════════════════════════════════════
-  function initTab2() {
+  function initOpenCellDept() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var UNITS = [1570, 2992, 2390, 2546, 1601, 1424, 151, 2261, 4439, 2461, 462];
+    var OPENCELL = [1570, 2992, 2390, 2546, 1601, 1424,  151, 2261, 4439, 2461,  462];
+    var ONN      = [ 282,  150,  313,  664,  710,  253,  325,  267,  344,  763,  999];
+    var VIZIO    = [ 172,   41,  147,  305,  332,  198,  292,  343,  363,  670,  970];
+    var RESTO    = [ 449,  642,  486,  571,  796,  308,  317,  328,  386,  788, 1099];
+    var TOTAL    = [2473, 3825, 3336, 4086, 3439, 2183, 1085, 3199, 5532, 4682, 3530];
+    // Avg HC/day — real data starts Oct 2025; Jul-Sep = null
+    var AVG_HC   = [null, null, null, 26.4, 22.1, 17.7, 29.0, 33.4, 24.5, 24.5, 20.8];
     var LABELS = MONTHS_RAW.map(formatMonth);
-    var BAR_COLORS = UNITS.map(function(_, i) { return i === 6 ? "#c9c9c9" : "#5aafa0"; });
 
-    var ctx = document.getElementById("tab2Chart").getContext("2d");
+    var ctx = document.getElementById("tab4Chart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
         labels: LABELS,
         datasets: [
           {
-            label: "New TVs Generated",
-            data: UNITS,
-            backgroundColor: BAR_COLORS,
-            borderRadius: 2,
-            borderSkipped: false
+            label: "Repairs: Resto",
+            data: RESTO,
+            backgroundColor: "#c9d8e8",
+            borderRadius: 2, borderSkipped: false, order: 5,
+            yAxisID: "yLeft"
+          },
+          {
+            label: "Repairs: Vizio",
+            data: VIZIO,
+            backgroundColor: "#5aafa0",
+            borderRadius: 2, borderSkipped: false, order: 4,
+            yAxisID: "yLeft"
+          },
+          {
+            label: "Repairs: Onn",
+            data: ONN,
+            backgroundColor: "#1e5f99",
+            borderRadius: 2, borderSkipped: false, order: 3,
+            yAxisID: "yLeft"
+          },
+          {
+            label: "Screen Swaps",
+            data: OPENCELL,
+            backgroundColor: "#4fa37a",
+            borderRadius: 2, borderSkipped: false, order: 2,
+            yAxisID: "yLeft"
           },
           {
             type: "line", label: "Total",
-            data: [1570,2992,2390,2546,1601,1424,151,2261,4439,2461,462],
+            data: TOTAL,
             borderColor: "#c0392b", backgroundColor: "transparent",
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
             tension: 0.3, fill: false, order: 0,
+            yAxisID: "yLeft",
             datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
               font: { size: 10, weight: "600" },
               formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          },
+          {
+            type: "line", label: "Avg Headcount / Day",
+            data: AVG_HC,
+            borderColor: "#e07b39", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#e07b39",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 1,
+            yAxisID: "yRight", spanGaps: false,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#e07b39",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v !== null ? v : ""; } }
           }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
         plugins: {
           datalabels: { display: false },
           legend: {
             position: "top",
-            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12 }
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12, usePointStyle: false }
           },
           tooltip: {
             backgroundColor: "#ffffff",
@@ -1120,15 +1598,25 @@
             padding: 12,
             callbacks: {
               label: function(context) {
-                var note = context.dataIndex === 6 ? " (shutdown)" : (context.dataIndex === 0 || context.dataIndex === 10 ? " (partial)" : "");
-                return " " + context.parsed.y.toLocaleString() + " units" + note;
+                var v = context.parsed.y;
+                if (context.dataset.label === "Avg Headcount / Day") {
+                  return v !== null ? " Headcount: " + v + " people/day" : null;
+                }
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var bars = items.filter(function(i){ return i.dataset.yAxisID === "yLeft" && i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total.toLocaleString() : null;
               }
             }
           }
         },
         scales: {
-          x: { grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
-          y: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          yLeft: {
+            type: "linear", position: "left",
+            stacked: true,
             beginAtZero: true,
             grid: { color: "#e0e0e0" },
             ticks: {
@@ -1136,40 +1624,95 @@
               callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
             },
             title: { display: true, text: "Units", color: "#555", font: { size: 11 } }
+          },
+          yRight: {
+            type: "linear", position: "right",
+            beginAtZero: true,
+            grid: { drawOnChartArea: false },
+            ticks: { color: "#e07b39", font: { size: 11 } },
+            title: { display: true, text: "Avg Headcount / Day", color: "#e07b39", font: { size: 11 } }
           }
         }
       }
     });
+
+    // Panels received per month (actual arrivals)
+    var PANELS = {
+      "2026-02": 2214,
+      "2026-03": 6816,
+      "2026-05": 2080
+    };
+
+    // Build table
+    var tbody = document.getElementById("tab4TableBody");
+    MONTHS_RAW.forEach(function(ym, i) {
+      var tr = document.createElement("tr");
+      var isJan = ym === "2026-01";
+      if (isJan) tr.className = "muted";
+      var panels = PANELS[ym] || 0;
+      var panelCell;
+      if (panels > 0) {
+        panelCell = "<td style='color:#1e5f99;font-weight:600'>+" + panels.toLocaleString() + "</td>";
+      } else if (isJan) {
+        panelCell = "<td style='color:#c0392b;font-weight:600'>0 — no stock</td>";
+      } else if (ym <= "2025-12") {
+        panelCell = "<td style='color:#888;font-style:italic'>old stock</td>";
+      } else {
+        panelCell = "<td style='color:#888'>—</td>";
+      }
+      tr.innerHTML =
+        "<td>" + formatMonth(ym) + (isJan ? " (lack of screens)" : "") + "</td>" +
+        "<td>" + OPENCELL[i].toLocaleString() + "</td>" +
+        panelCell +
+        "<td>" + ONN[i].toLocaleString() + "</td>" +
+        "<td>" + VIZIO[i].toLocaleString() + "</td>" +
+        "<td>" + RESTO[i].toLocaleString() + "</td>" +
+        "<td>" + TOTAL[i].toLocaleString() + "</td>";
+      tbody.appendChild(tr);
+    });
+
+    initOpenCellHC();
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 3 — Técnicos (DMT Repairs)
+  // TAB 4b — OpenCell Dept. Headcount by Activity
   // ════════════════════════════════════════════════════════
-  function initTab3() {
-    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var ONN   = [282, 150, 313, 664, 710, 253, 325, 267, 344, 763, 999];
-    var VIZIO = [172,  41, 147, 305, 332, 198, 292, 343, 363, 670, 970];
-    var RESTO = [449, 642, 486, 571, 796, 308, 317, 328, 386, 788, 1099];
-    var LABELS = MONTHS_RAW.map(formatMonth);
+  function initOpenCellHC() {
+    var MONTHS_RAW = ["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var OC_HC   = [18.8, 10.0, 12.2,  2.7,  8.1,  9.1,  7.2,  2.4];
+    var DMT_HC  = [ 7.6, 12.1,  4.2,  8.7,  4.8,  4.5,  9.0, 12.3];
+    var FFT_HC  = [ 0.0,  0.0,  1.4,  1.5,  4.5,  3.7,  2.5,  1.1];
+    var VER_HC  = [ 0.0,  0.0,  0.0,  0.0,  4.4,  3.2,  0.0,  1.1];
+    var KIT_HC  = [ 0.0,  0.0,  0.0,  0.0,  0.0,  3.1,  5.9,  4.0];
+    var SORT_HC = [ 0.0,  0.0,  0.0,  2.1,  1.4,  0.0,  0.0,  0.0];
+    var DMA_HC  = [ 0.0,  0.0,  0.0,  3.0,  0.0,  0.0,  0.0,  0.0];
+    var TOTAL   = [26.4, 22.1, 17.7, 29.0, 33.4, 24.5, 24.5, 20.8];
+    var LABELS  = MONTHS_RAW.map(formatMonth);
 
-    var ctx = document.getElementById("tab3Chart").getContext("2d");
+    var ctx = document.getElementById("tab4HCChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
         labels: LABELS,
         datasets: [
-          { label: "Resto", data: RESTO, backgroundColor: "#c9d8e8", borderRadius: 2, borderSkipped: false, order: 3 },
-          { label: "Vizio", data: VIZIO, backgroundColor: "#5aafa0", borderRadius: 2, borderSkipped: false, order: 2 },
-          { label: "Onn",   data: ONN,   backgroundColor: "#1e5f99", borderRadius: 2, borderSkipped: false, order: 1 },
-          { type: "line", label: "Total",
-            data: [903,833,946,1540,1838,759,934,938,1093,2221,3068],
+          { label: "OpenCell",     data: OC_HC,   backgroundColor: "#4fa37a", borderRadius: 2, borderSkipped: false, order: 8 },
+          { label: "DMT",          data: DMT_HC,  backgroundColor: "#1e5f99", borderRadius: 2, borderSkipped: false, order: 7 },
+          { label: "FFT/OC",       data: FFT_HC,  backgroundColor: "#8eb8d4", borderRadius: 2, borderSkipped: false, order: 6 },
+          { label: "Versiones",    data: VER_HC,  backgroundColor: "#e07b39", borderRadius: 2, borderSkipped: false, order: 5 },
+          { label: "Kits",         data: KIT_HC,  backgroundColor: "#7a6bbf", borderRadius: 2, borderSkipped: false, order: 4 },
+          { label: "Sorting",      data: SORT_HC, backgroundColor: "#c47a3a", borderRadius: 2, borderSkipped: false, order: 3 },
+          { label: "DMA Disposal", data: DMA_HC,  backgroundColor: "#a85a7a", borderRadius: 2, borderSkipped: false, order: 2 },
+          {
+            type: "line", label: "Total HC",
+            data: TOTAL,
             borderColor: "#c0392b", backgroundColor: "transparent",
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
             tension: 0.3, fill: false, order: 0,
             datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
               font: { size: 10, weight: "600" },
-              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } } }
+              formatter: function(v) { return v; } }
+          }
         ]
       },
       options: {
@@ -1185,11 +1728,12 @@
             callbacks: {
               label: function(context) {
                 var v = context.parsed.y;
-                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toFixed(1) + " people/day" : null;
               },
               footer: function(items) {
-                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
-                return "Total: " + total.toLocaleString();
+                var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Avg total: " + total.toFixed(1) + " people/day" : null;
               }
             }
           }
@@ -1198,70 +1742,45 @@
           x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
           y: {
             stacked: true, beginAtZero: true, grid: { color: "#e0e0e0" },
-            ticks: { color: "#444", font: { size: 11 }, callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(1) + "k" : v; } },
-            title: { display: true, text: "Units Repaired", color: "#555", font: { size: 11 } }
+            ticks: { color: "#444", font: { size: 11 } },
+            title: { display: true, text: "Avg Headcount / Day", color: "#555", font: { size: 11 } }
           }
         }
       }
     });
-
-    var tbody = document.getElementById("tab3TableBody");
-    MONTHS_RAW.forEach(function(ym, i) {
-      var onn = ONN[i], vizio = VIZIO[i], resto = RESTO[i];
-      var total = onn + vizio + resto;
-      var pct = (((onn + vizio) / total) * 100).toFixed(1);
-      var tr = document.createElement("tr");
-      tr.innerHTML =
-        "<td>" + formatMonth(ym) + "</td>" +
-        "<td>" + onn.toLocaleString() + "</td>" +
-        "<td>" + vizio.toLocaleString() + "</td>" +
-        "<td>" + resto.toLocaleString() + "</td>" +
-        "<td>" + total.toLocaleString() + "</td>" +
-        "<td>" + pct + "%</td>";
-      tbody.appendChild(tr);
-    });
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 4 — Units Delivered (B2B)
+  // TAB 5 — Units Delivered (B2B)
   // ════════════════════════════════════════════════════════
-  function initTab4() {
+  function initTab5() {
     var MONTHS = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
 
     var SERIES = {
       "B2B":               [5237, 8339, 6198, 6528, 9969, 7230, 7258, 7099, 3043, 4335, 6004],
-      "B2C":               [  53,  147,  143,   66,  169,  245,  339,  357,  216,   27,   88],
-      "CALVARY (B2B DMA)": [   0,    0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0],
-      "FBA":               [1949, 4132, 2646, 6220, 4670, 4303, 2894, 4962, 6428, 9305, 2800],
-      "FULL":              [ 562, 2357, 1465, 3324, 4872, 2622, 2663, 3905, 1545, 1072, 1408],
+      "CALVARY (B2B SLG)": [   0,    0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0],
       "Internal Use":      [  10,    2,    8,   33,   87,    4,   45,   16,  242,   50,    9],
       "Recycling":         [   0,    0,    0,    0,    0,    0,    0, 7978,18135,17136,14637],
       "TRG Returns - HV":  [   0,    0,    0,    0, 1311, 2864, 1722, 9492, 8200, 2836, 3017],
       "TRG Returns - TVs": [   0,  673,  681, 5836, 4811, 6160,25842,10396,10881, 6368,10992],
-      "UPT (B2B DMA)":     [1757,  945, 2494, 4629, 4526, 4282, 6398, 1433, 3669, 2429, 2426]
+      "UPT (B2B SLG)":     [1757,  945, 2494, 4629, 4526, 4282, 6398, 1433, 3669, 2429, 2426]
     };
 
     var TOTALS = {
       "B2B":               71240,
-      "B2C":                1850,
-      "CALVARY (B2B DMA)":  4698,
-      "FBA":               50309,
-      "FULL":              25795,
+      "CALVARY (B2B SLG)":  4698,
       "Internal Use":        506,
       "Recycling":         57886,
       "TRG Returns - HV":  29442,
       "TRG Returns - TVs": 82640,
-      "UPT (B2B DMA)":     34988
+      "UPT (B2B SLG)":     34988
     };
 
-    var GRAND_TOTAL = 359354;
+    var GRAND_TOTAL = 281400;
 
     var PALETTE = [
       "#3d7ebf",
-      "#5aafa0",
       "#e07b6a",
-      "#7a6bbf",
-      "#4fa37a",
       "#c47a3a",
       "#5888a8",
       "#a85a7a",
@@ -1285,7 +1804,7 @@
 
     datasets.push({
       type: "line", label: "Total",
-      data: [9568,16595,13635,26636,30415,27710,48775,46740,53367,44532,41381],
+      data: [7004,9959,9381,17026,20704,20540,42879,37516,45178,34128,37085],
       borderColor: "#c0392b", backgroundColor: "transparent",
       borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
       pointBorderColor: "#fff", pointBorderWidth: 1.5,
@@ -1295,7 +1814,7 @@
         formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
     });
 
-    var ctx = document.getElementById("tab4Chart").getContext("2d");
+    var ctx = document.getElementById("tab5Chart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: { labels: MONTHS, datasets: datasets },
@@ -1345,32 +1864,33 @@
 
     // Build summary table
     var sorted = categories.slice().sort(function(a, b) { return TOTALS[b] - TOTALS[a]; });
-    var tbody = document.getElementById("tab4SummaryBody");
+    var tbody = document.getElementById("tab5SummaryBody");
     sorted.forEach(function(cat) {
       var total = TOTALS[cat];
       var pct = ((total / GRAND_TOTAL) * 100).toFixed(1);
       var color = PALETTE[categories.indexOf(cat)];
       var barWidth = Math.round((total / GRAND_TOTAL) * 120);
       var tr = document.createElement("tr");
+      if (cat.indexOf("TRG") !== -1) { tr.style.backgroundColor = "#fffbcc"; }
       tr.innerHTML =
         "<td><div class='cat-cell'><span class='swatch' style='background:" + color + "'></span>" + cat + "</div></td>" +
         "<td><span class='bar-pct' style='width:" + barWidth + "px; background:" + color + "'></span>" + total.toLocaleString() + "</td>" +
         "<td>" + pct + "%</td>";
       tbody.appendChild(tr);
     });
-    document.getElementById("tab4GrandTotalUnits").textContent = GRAND_TOTAL.toLocaleString();
+    document.getElementById("tab5GrandTotalUnits").textContent = GRAND_TOTAL.toLocaleString();
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 5 — B2B-DMA
+  // TAB 5 — B2B-SLG
   // ════════════════════════════════════════════════════════
-  function initTab5() {
+  function initTab6() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
     var UPT     = [1757, 945, 2494, 4629, 4526, 4282, 6398, 1433, 3669, 2429, 2426];
     var CALVARY = [   0,   0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0];
     var LABELS = MONTHS_RAW.map(formatMonth);
 
-    var ctx = document.getElementById("tab5Chart").getContext("2d");
+    var ctx = document.getElementById("tab6Chart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
@@ -1451,7 +1971,7 @@
     });
 
     // Build table
-    var tbody = document.getElementById("tab5TableBody");
+    var tbody = document.getElementById("tab6TableBody");
     MONTHS_RAW.forEach(function(ym, i) {
       var upt = UPT[i];
       var cal = CALVARY[i];
@@ -1469,52 +1989,69 @@
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 6 — B2C Orders
+  // TAB 5 — B2C Orders
   // ════════════════════════════════════════════════════════
-  function initTab6() {
+  function initTab7() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var ML    = [1892, 1685, 2047, 2324, 3882, 2454, 2464, 2604, 2388, 2508, 2124];
-    var AMAZON = [1186, 836, 826, 1304, 2570, 1733, 1153, 1084, 1498, 904, 1014];
-    var OTHER  = [0, 4, 0, 0, 6, 28, 5, 0, 3, 0, 0];
+    // Daily fulfilled
+    var ML_DAILY  = [1892, 1685, 2047, 2324, 3882, 2454, 2464, 2604, 2388, 2508, 2124];
+    var AMZ_DAILY = [1186,  836,  826, 1304, 2570, 1733, 1153, 1084, 1498,  904, 1014];
+    var OTHER     = [   0,    4,    0,    0,    6,   28,    5,    0,    3,    0,    0];
+    // Bulk shipments
+    var ML_FULL   = [ 562, 2357, 1465, 3324, 4872, 2622, 2663, 3905, 1545, 1072, 1408];
+    var AMZ_FBA   = [1949, 4132, 2646, 6220, 4670, 4303, 2894, 4962, 6428, 9305, 2800];
+    var DIR_FULFL = [  53,  147,  143,   66,  169,  245,  339,  357,  216,   27,   88];
     var LABELS = MONTHS_RAW.map(formatMonth);
 
-    var ctx = document.getElementById("tab6Chart").getContext("2d");
+    var ctx = document.getElementById("tab7Chart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
         labels: LABELS,
         datasets: [
           {
-            label: "MercadoLibre",
-            data: ML,
+            label: "ML · Daily Orders",
+            data: ML_DAILY,
             backgroundColor: "#5aafa0",
-            borderRadius: 2,
-            borderSkipped: false,
-            order: 2
+            borderRadius: 2, borderSkipped: false, order: 6
           },
           {
-            label: "Amazon",
-            data: AMAZON,
+            label: "ML · FULL (Bulk)",
+            data: ML_FULL,
+            backgroundColor: "#2d7a6a",
+            borderRadius: 2, borderSkipped: false, order: 5
+          },
+          {
+            label: "Amazon · Daily Orders",
+            data: AMZ_DAILY,
             backgroundColor: "#1e5f99",
-            borderRadius: 2,
-            borderSkipped: false,
-            order: 1
+            borderRadius: 2, borderSkipped: false, order: 4
+          },
+          {
+            label: "Amazon · FBA (Bulk)",
+            data: AMZ_FBA,
+            backgroundColor: "#5888c8",
+            borderRadius: 2, borderSkipped: false, order: 3
+          },
+          {
+            label: "Direct Fulfillment",
+            data: DIR_FULFL,
+            backgroundColor: "#c47a3a",
+            borderRadius: 2, borderSkipped: false, order: 2
           },
           {
             label: "Other",
             data: OTHER,
             backgroundColor: "#c9c9c9",
-            borderRadius: 2,
-            borderSkipped: false,
-            order: 0
+            borderRadius: 2, borderSkipped: false, order: 1
           },
           {
             type: "line", label: "Total",
-            data: [3078,2525,2873,3628,6458,4215,3622,3688,3889,3412,3138],
+            data: [5642,9161,7127,13238,16169,11385,9518,12912,12078,13816,7434],
             borderColor: "#c0392b", backgroundColor: "transparent",
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
-            tension: 0.3, fill: false, order: -1,
+            tension: 0.3, fill: false, order: 0,
             datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
               font: { size: 10, weight: "600" },
               formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
@@ -1544,8 +2081,9 @@
                 return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
               },
               footer: function(items) {
-                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
-                return "Total: " + total.toLocaleString();
+                var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total.toLocaleString() : null;
               }
             }
           }
@@ -1567,21 +2105,23 @@
     });
 
     // Build table
-    var tbody = document.getElementById("tab6TableBody");
+    var tbody = document.getElementById("tab7TableBody");
     MONTHS_RAW.forEach(function(ym, i) {
-      var ml = ML[i];
-      var amz = AMAZON[i];
-      var oth = OTHER[i];
-      var total = ml + amz + oth;
-      var pct = ((ml / total) * 100).toFixed(1);
+      var mld  = ML_DAILY[i];
+      var mlf  = ML_FULL[i];
+      var amzd = AMZ_DAILY[i];
+      var fba  = AMZ_FBA[i];
+      var dir  = DIR_FULFL[i];
+      var total = mld + mlf + amzd + fba + dir + OTHER[i];
       var tr = document.createElement("tr");
       tr.innerHTML =
         "<td>" + formatMonth(ym) + "</td>" +
-        "<td>" + ml.toLocaleString() + "</td>" +
-        "<td>" + amz.toLocaleString() + "</td>" +
-        "<td>" + (oth > 0 ? oth.toLocaleString() : "—") + "</td>" +
-        "<td>" + total.toLocaleString() + "</td>" +
-        "<td>" + pct + "%</td>";
+        "<td>" + mld.toLocaleString() + "</td>" +
+        "<td>" + mlf.toLocaleString() + "</td>" +
+        "<td>" + amzd.toLocaleString() + "</td>" +
+        "<td>" + fba.toLocaleString() + "</td>" +
+        "<td>" + dir.toLocaleString() + "</td>" +
+        "<td>" + total.toLocaleString() + "</td>";
       tbody.appendChild(tr);
     });
   }
