@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plant KPI Dashboard — MI Technologies MTY MAXX</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f5f5f5;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #222;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      max-width: 1100px;
+      margin: 0 auto 20px auto;
+    }
+
+    .page-header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+
+    .page-header p {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: #666;
+    }
+
+    /* ── Tab navigation ── */
+    .tab-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .tab-bar {
+      display: flex;
+      background: #e0e0e0;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .tab-btn {
+      padding: 11px 22px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: #444;
+      background: #f0f0f0;
+      border: none;
+      border-right: 1px solid #d0d0d0;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.12s, color 0.12s;
+      position: relative;
+      bottom: -1px;
+    }
+
+    .tab-btn:last-child {
+      border-right: none;
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: #e6e6e6;
+      color: #222;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: #1a1a2e;
+      font-weight: 700;
+      border-bottom: 1px solid #ffffff;
+      z-index: 1;
+    }
+
+    /* ── Tab panels ── */
+    .tab-panels {
+      background: transparent;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ── Card (shared across all tabs) ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 0 0 12px 12px;
+      padding: 32px 36px;
+      width: 100%;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+
+    .card-header {
+      margin-bottom: 28px;
+    }
+
+    .card-header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+
+    .card-header p {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: #666;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      margin-bottom: 36px;
+    }
+
+    /* ── Summary table ── */
+    .table-section {
+      margin-bottom: 8px;
+      overflow-x: auto;
+    }
+
+    .table-section h2 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #444;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #f2f2f2;
+      color: #444;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    thead th:not(:first-child) {
+      text-align: right;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #e8e8e8;
+      transition: background 0.15s;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tbody tr:hover {
+      background: #eef2ff;
+    }
+
+    tbody td {
+      padding: 10px 14px;
+      color: #222;
+    }
+
+    tbody td:not(:first-child) {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      color: #333;
+    }
+
+    tbody tr.muted td {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    tfoot tr {
+      border-top: 2px solid #c0c0c0;
+    }
+
+    tfoot td {
+      padding: 10px 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    tfoot td:not(:first-child) {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Units delivered table extras ── */
+    .swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 8px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    .cat-cell {
+      display: flex;
+      align-items: center;
+    }
+
+    .bar-pct {
+      display: inline-block;
+      height: 6px;
+      border-radius: 3px;
+      vertical-align: middle;
+      margin-right: 8px;
+      opacity: 0.7;
+    }
+
+    /* ── Footer note ── */
+    .footer-note {
+      margin-top: 20px;
+      font-size: 0.74rem;
+      color: #888;
+      text-align: right;
+    }
+
+    /* ── Insight section ── */
+    .insight-section {
+      margin-top: 28px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 20px;
+    }
+
+    .insight-section h2 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #444;
+      margin-bottom: 14px;
+    }
+
+    .kpi-hero {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding: 16px 22px;
+      background: #f7f8fc;
+      border: 1px solid #e4e6ef;
+      border-radius: 8px;
+    }
+
+    .kpi-value {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .kpi-label {
+      font-size: 0.88rem;
+      color: #555;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .insight-card {
+      background: #f7f8fc;
+      border: 1px solid #e4e6ef;
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+
+    .insight-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .insight-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+
+    .insight-body {
+      font-size: 0.80rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* ── Placeholder tab ── */
+    .placeholder-msg {
+      text-align: center;
+      color: #999;
+      font-size: 0.9rem;
+      padding: 48px 24px;
+      line-height: 1.7;
+    }
+    #go-home {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #1a1a2e;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 999;
+    }
+
+    #go-home.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #go-home:hover {
+      background: #2e2e4e;
+      transform: translateY(-2px);
+    }
+
+    #go-home svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <h1>MI Technologies MTY MAXX — Plant KPI Dashboard</h1>
+    <p>Jul 2025 – May 2026</p>
+  </div>
+
+  <!-- Tab shell -->
+  <div class="tab-shell">
+
+    <!-- Tab bar -->
+    <div class="tab-bar" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="panel-1" onclick="showTab(1)">FFT</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-2" onclick="showTab(2)">OpenCell</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-3" onclick="showTab(3)">Técnicos (DMT)</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">B2B</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-5" onclick="showTab(5)">B2B-DMA</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-6" onclick="showTab(6)">B2C</button>
+    </div>
+
+    <!-- Tab panels -->
+    <div class="tab-panels">
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 1 — FFT (report_fft_sellable.html)
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel active" id="panel-1" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>Sellable TVs by Month — Vizio vs. Rest of Brands</h1>
+            <p>FFT Plant &nbsp;·&nbsp; Jul 2025 – May 2026 &nbsp;·&nbsp; 216,707 units</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">216,707</span>
+            <span class="kpi-label">Total Sellable TVs Processed</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab1Chart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Monthly Breakdown</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Vizio</th>
+                  <th>Resto</th>
+                  <th>Total</th>
+                  <th>Vizio %</th>
+                </tr>
+              </thead>
+              <tbody id="tab1TableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>62,928</td>
+                  <td>153,779</td>
+                  <td>216,707</td>
+                  <td>29.0%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Overall Output</div>
+                <div class="insight-title">216,707 sellable units over 11 months</div>
+                <div class="insight-body">The FFT plant processed and certified a monthly average of 19,700 sellable units from July 2025 through May 2026, ranging from a low of 9,215 in July 2025 to a peak of 30,212 in February 2026.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Vizio Share</div>
+                <div class="insight-title">Vizio grew from 20% to a 35% share at peak, settling at 33% in May</div>
+                <div class="insight-body">In July 2025, Vizio represented 20.0% of sellable output (1,841 of 9,215 units). It peaked at 35.3% in January 2026 (10,574 of 27,776). By May 2026 it held 33.0% (6,373 of 19,304), nearly double its starting share.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Peak Month</div>
+                <div class="insight-title">February 2026 — 30,212 units, the highest single month</div>
+                <div class="insight-body">February reached 30,212 total sellable units, driven by both Vizio (10,687, its all-time monthly high) and Resto (19,525). This coincides with post-holiday inventory replenishment cycles pushing throughput to maximum certified volume.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Trend</div>
+                <div class="insight-title">Volume down 36% since the February peak, stabilizing above 19k</div>
+                <div class="insight-body">After the February 2026 peak of 30,212 units, output fell in March (−21%), April (−10%), and May (−3%). The last three months average 20,942 units, suggesting a stable new run rate rather than continued decline.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: FFT Plant · Sellable units only (non-sellable dispositions excluded) · Report date: May 28, 2026</p>
+
+        </div>
+      </div><!-- /panel-1 -->
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 2 — OpenCell (report_opencell_new_tvs.html)
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-2" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>New TVs Generated — OpenCell Screen Swaps</h1>
+            <p>OpenCell Department &nbsp;·&nbsp; Jul 2025 – May 2026 &nbsp;·&nbsp; 22,297 units</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">22,297</span>
+            <span class="kpi-label">Total New TVs Manufactured</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab2Chart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Monthly Breakdown</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>New TVs</th>
+                  <th>vs. Active Avg</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="muted"><td>Jul 2025 (partial)</td><td>1,570</td><td>−29%</td></tr>
+                <tr><td>Aug 2025</td><td>2,992</td><td>+35%</td></tr>
+                <tr><td>Sep 2025</td><td>2,390</td><td>+8%</td></tr>
+                <tr><td>Oct 2025</td><td>2,546</td><td>+15%</td></tr>
+                <tr><td>Nov 2025</td><td>1,601</td><td>−28%</td></tr>
+                <tr><td>Dec 2025</td><td>1,424</td><td>−36%</td></tr>
+                <tr class="muted"><td>Jan 2026 (shutdown)</td><td>151</td><td>n/a</td></tr>
+                <tr><td>Feb 2026</td><td>2,261</td><td>+2%</td></tr>
+                <tr><td>Mar 2026</td><td>4,439</td><td>+100%</td></tr>
+                <tr><td>Apr 2026</td><td>2,461</td><td>+11%</td></tr>
+                <tr class="muted"><td>May 2026 (partial)</td><td>462</td><td>−79%</td></tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>22,297</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Total Output</div>
+                <div class="insight-title">22,297 new TVs generated in 11 months</div>
+                <div class="insight-body">Excluding the January 2026 operational shutdown, the active monthly average is 2,215 units across 10 months — confirming a steady, if modest, screen-swap operation running in parallel with the main FFT line.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Peak Month</div>
+                <div class="insight-title">March 2026 — 4,439 units, 2× the active average</div>
+                <div class="insight-body">March is the only month to surpass 4,000 units and stands at double the 10-month average. No comparable spike in any adjacent month, suggesting a concentrated production push rather than a sustained ramp.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">January 2026</div>
+                <div class="insight-title">Operational shutdown — 151 units, not a demand signal</div>
+                <div class="insight-body">January recorded only 151 units — 93% below the active average. This reflects a holiday and scheduling halt, consistent with the same pattern seen across other departments that month.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Recent Trend</div>
+                <div class="insight-title">Output pulled back to the active-average range post-March</div>
+                <div class="insight-body">April 2026 returned to 2,461 units (−45% from March, but in line with the annual average). May is a partial month at 462 units through May 28 — end-of-month volume will determine whether the pace held.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: OpenCell Dept. · Each row = 1 completed screen swap · Jan 2026 shutdown and partial months (Jul 2025, May 2026) noted · Report date: May 28, 2026</p>
+
+        </div>
+      </div><!-- /panel-2 -->
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 3 — Técnicos (DMT) placeholder
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-3" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>DMT Repairs by Month — Onn vs. Vizio vs. Rest of Brands</h1>
+            <p>Técnicos Department · Jul 2025 – May 2026 · 15,073 units repaired</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">15,073</span>
+            <span class="kpi-label">Total TVs Repaired</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab3Chart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Monthly Breakdown</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Onn</th>
+                  <th>Vizio</th>
+                  <th>Resto</th>
+                  <th>Total</th>
+                  <th>Onn+Vizio %</th>
+                </tr>
+              </thead>
+              <tbody id="tab3TableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>5,070</td>
+                  <td>3,833</td>
+                  <td>6,170</td>
+                  <td>15,073</td>
+                  <td>58.7%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Brand Mix</div>
+                <div class="insight-title">Onn and Vizio account for 58.7% of all DMT repairs</div>
+                <div class="insight-body">Onn leads with 5,070 units (33.6%) and Vizio follows at 3,833 (25.4%). The remaining 6,170 units span 25 other brands — Samsung (2,228), TCL (1,930), and Hisense (830) being the next largest.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Ramp-Up</div>
+                <div class="insight-title">Volume tripled from Q3 2025 to May 2026</div>
+                <div class="insight-body">Average monthly repairs in Jul–Sep 2025 was 894 units. By Apr–May 2026 the operation reached 2,221 and 3,068 units respectively — the highest months on record, suggesting sustained capacity growth across the full period.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Vizio Trend</div>
+                <div class="insight-title">Vizio surpassed Onn in Feb–Mar 2026 before both peaked in May</div>
+                <div class="insight-body">From Jul 2025 to Jan 2026 Onn consistently led Vizio. In February and March 2026 Vizio overtook Onn (343 vs 267, 363 vs 344). Both converged sharply in Apr–May 2026, with Onn reclaiming the lead at 999 vs 970 in May.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Acceleration</div>
+                <div class="insight-title">May 2026 is the peak at 3,068 units — with the month still open</div>
+                <div class="insight-body">May 2026 (through May 28) already surpassed every prior month at 3,068 units, up 38% from April's 2,221. If the pace holds through month-end, May will close well above 3,000 — establishing a new operational baseline for Q2 2026.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: Técnicos sheet · Each row = 1 unit repaired · 27 brands total · Report date: May 28, 2026</p>
+
+        </div>
+      </div><!-- /panel-3 -->
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 4 — B2B (report_units_delivered.html)
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-4" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>Units Delivered by Invoice Date &amp; Client Category</h1>
+            <p>MI Technologies MTY MAXX &nbsp;|&nbsp; Jul 2025 – May 2026 &nbsp;|&nbsp; Source: OrderEntry Report 05/28/2026</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">359,354</span>
+            <span class="kpi-label">Total Sales by Market Segment</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab4Chart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Summary by Category</h2>
+            <table id="tab4SummaryTable">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Total Units Delivered</th>
+                  <th>% of Total</th>
+                </tr>
+              </thead>
+              <tbody id="tab4SummaryBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td id="tab4GrandTotalUnits"></td>
+                  <td>100.0%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Overall Trend</div>
+                <div class="insight-title">5.8× volume growth in 11 months</div>
+                <div class="insight-body">From 9,135 units in July 2025 to a peak of 53,136 in March 2026. Average monthly volume in Q1 2026 ran 3× above the H2 2025 baseline.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Watch</div>
+                <div class="insight-title">Three consecutive months of decline since the March peak</div>
+                <div class="insight-body">April dropped −16.2% from March, and May added another −6.2%. The March peak may have been event-driven rather than a new baseline.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Category Mix</div>
+                <div class="insight-title">Recycling grew to 57,886 units without displacing B2B</div>
+                <div class="insight-body">Recycling operates on broken TVs that are processed and exited through the order system — it is not a sales channel competing with B2B. Both categories grew in parallel: B2B reached 71,240 units while Recycling scaled from zero to 18,000+/month between Jan–May 2026.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Business Mix</div>
+                <div class="insight-title">TRG accounts for 31% of volume as a service client, not a return flow</div>
+                <div class="insight-body">B2C General (1,850 units) are out-of-channel returns — distinct from marketplace B2C, which stays under 0.6% of total volume.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Note: "Interal Use" (typo in source) merged into "Internal Use". Rows with 0 units included in axis.</p>
+
+        </div>
+      </div><!-- /panel-4 -->
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 5 — B2B-DMA (report_b2b_dma.html)
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-5" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>B2B-DMA Shipments by Month — UPT Inc vs. Calvary Corp</h1>
+            <p>B2B DMA Channel · Jul 2025 – May 2026 · 39,686 units shipped</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">39,686</span>
+            <span class="kpi-label">Total DMA TV Exports</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab5Chart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Monthly Breakdown</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>UPT Inc</th>
+                  <th>Calvary Corp</th>
+                  <th>Total</th>
+                  <th>Calvary %</th>
+                </tr>
+              </thead>
+              <tbody id="tab5TableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>34,988</td>
+                  <td>4,698</td>
+                  <td>39,686</td>
+                  <td>11.8%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Client Mix</div>
+                <div class="insight-title">UPT Inc drives 88.2% of DMA volume — Calvary joined in Jan 2026</div>
+                <div class="insight-body">UPT Inc has been the sole DMA client since July 2025 with 34,988 units across 11 months. Calvary Corp entered in January 2026 and added 4,698 units over 4 months, expanding total DMA capacity without displacing UPT volume.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">UPT Peak</div>
+                <div class="insight-title">January 2026 — 6,398 units, UPT's highest single month</div>
+                <div class="insight-body">UPT Inc peaked at 6,398 units in January 2026, 78% above its 11-month average of 3,181. The following month dropped sharply to 1,433 units, suggesting January was a concentrated catch-up shipment rather than a new run rate.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Calvary Ramp</div>
+                <div class="insight-title">Calvary averaged 1,175 units/month across its first 4 active months</div>
+                <div class="insight-body">Calvary Corp shipped 1,614 units in January 2026, declining gradually to 1,102 (Feb), 1,008 (Mar), and 974 (Apr). No shipments recorded for May 2026 — two pending rows with placeholder quantities were excluded from totals.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Trend</div>
+                <div class="insight-title">Combined DMA volume stabilizing around 3,400 units/month in 2026</div>
+                <div class="insight-body">Excluding the January 2026 spike, the Feb–May 2026 average is 3,403 combined units/month (UPT + Calvary). UPT's baseline has recovered to ~2,500–3,700/month after the post-January dip, consistent with its H2 2025 pace.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: MTY UPT inc Shipments · 2 Calvary rows (2026-05-29, qty pending) excluded · Report date: May 28, 2026</p>
+
+        </div>
+      </div><!-- /panel-5 -->
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 6 — B2C (report_b2c_orders.html)
+      ══════════════════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-6" role="tabpanel">
+        <div class="card">
+
+          <div class="card-header">
+            <h1>B2C TV Orders by Month — MercadoLibre vs. Amazon</h1>
+            <p>Shipping B2C · Jul 2025 – May 2026 · 40,526 units shipped</p>
+          </div>
+
+          <div class="kpi-hero">
+            <span class="kpi-value">40,526</span>
+            <span class="kpi-label">Total e-Commerce Fulfilled Sales</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab6Chart"></canvas>
+          </div>
+
+          <div class="table-section">
+            <h2>Monthly Breakdown</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>MercadoLibre</th>
+                  <th>Amazon</th>
+                  <th>Other</th>
+                  <th>Total</th>
+                  <th>ML %</th>
+                </tr>
+              </thead>
+              <tbody id="tab6TableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>26,372</td>
+                  <td>14,108</td>
+                  <td>46</td>
+                  <td>40,526</td>
+                  <td>65.1%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="insight-section">
+            <h2>Key Insights</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Channel Mix</div>
+                <div class="insight-title">MercadoLibre leads B2C — 65.1% of all units shipped</div>
+                <div class="insight-body">MercadoLibre accounts for 26,372 of 40,526 units across 11 months, consistently outpacing Amazon in every single month. Amazon (14,108 units, 34.8%) operates through Autobot seller accounts. Other channels total just 46 units.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Peak Season</div>
+                <div class="insight-title">November 2025 — 6,458 units, driven by both channels</div>
+                <div class="insight-body">November 2025 reached 6,458 units (ML 3,882 + Amazon 2,570), aligned with Buen Fin and Black Friday. December followed at 4,215. Together Nov–Dec represent 26% of full-year B2C volume.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Baseline</div>
+                <div class="insight-title">Off-season average of ~3,300 units/month holds steady</div>
+                <div class="insight-body">Excluding November and December, the remaining 9 months average 3,299 units/month. MercadoLibre's monthly floor is ~1,900 units; Amazon's is ~830. Both channels show consistent demand outside the holiday window.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Trend</div>
+                <div class="insight-title">Post-holiday volume normalized — 2026 running at steady pace</div>
+                <div class="insight-body">After the Nov–Dec peak, January 2026 dipped to 3,622 units before recovering to 3,688 in February and 3,889 in March. April and May held above 3,000, confirming a healthy and stable B2C run rate.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: Shipping B2C-TVs · MercadoLibre via source column (apantallatemx, MiTechnologiesComercial, lutemamexico) · Amazon via Autobot accounts · Report date: May 28, 2026</p>
+
+        </div>
+      </div><!-- /panel-6 -->
+
+    </div><!-- /tab-panels -->
+  </div><!-- /tab-shell -->
+
+  <!-- ══════════════════════════════════════════════════════════════
+       TAB NAVIGATION
+  ══════════════════════════════════════════════════════════════ -->
+  <script>
+  const TAB_COUNT = 6;
+  const initialized = {};
+
+  function showTab(n) {
+    // Update buttons
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(function(btn, i) {
+      if (i + 1 === n) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      } else {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      }
+    });
+
+    // Update panels
+    for (var i = 1; i <= TAB_COUNT; i++) {
+      var panel = document.getElementById('panel-' + i);
+      if (i === n) {
+        panel.classList.add('active');
+      } else {
+        panel.classList.remove('active');
+      }
+    }
+
+    // Initialize chart on first show
+    if (!initialized[n]) {
+      initialized[n] = true;
+      initChart(n);
+    }
+  }
+
+  // Init tab 1 immediately (it's active on load)
+  initialized[1] = true;
+  </script>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       CHART INIT FUNCTIONS (one per tab with a chart)
+  ══════════════════════════════════════════════════════════════ -->
+  <script>
+  function initChart(tabNum) {
+    if (tabNum === 1) { initTab1(); }
+    else if (tabNum === 2) { initTab2(); }
+    else if (tabNum === 3) { initTab3(); }
+    else if (tabNum === 4) { initTab4(); }
+    else if (tabNum === 5) { initTab5(); }
+    else if (tabNum === 6) { initTab6(); }
+  }
+
+  // ── SHARED MONTH FORMATTER ────────────────────────────────────
+  const MONTH_NAMES = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function formatMonth(ym) {
+    var parts = ym.split("-");
+    return MONTH_NAMES[parseInt(parts[1], 10) - 1] + " '" + parts[0].slice(2);
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 1 — FFT Sellable
+  // ════════════════════════════════════════════════════════
+  function initTab1() {
+    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var VIZIO = [1841, 1143, 2401, 5017, 6043, 6923, 10574, 10687, 6265, 5661, 6373];
+    var RESTO = [7374, 6232, 8790, 17156, 18178, 13619, 17202, 19525, 17881, 14891, 12931];
+    var LABELS = MONTHS_RAW.map(formatMonth);
+
+    var ctx = document.getElementById("tab1Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: LABELS,
+        datasets: [
+          {
+            label: "Resto",
+            data: RESTO,
+            backgroundColor: "#8eb8d4",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 2
+          },
+          {
+            label: "Vizio",
+            data: VIZIO,
+            backgroundColor: "#1e5f99",
+            borderColor: "rgba(0,0,0,0.15)",
+            borderWidth: 0.5,
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 1
+          },
+          {
+            type: "line", label: "Total",
+            data: [9215,7375,11191,22173,24221,20542,27776,30212,24146,20552,19304],
+            borderColor: "#c0392b", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 0,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          datalabels: { display: false },
+          legend: {
+            position: "top",
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12, usePointStyle: false }
+          },
+          tooltip: {
+            backgroundColor: "#ffffff",
+            borderColor: "#d0d0d0",
+            borderWidth: 1,
+            titleColor: "#1a1a2e",
+            bodyColor: "#333",
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                var v = context.parsed.y;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return "Total: " + total.toLocaleString();
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          y: {
+            stacked: true,
+            grid: { color: "#e0e0e0" },
+            ticks: {
+              color: "#444", font: { size: 11 },
+              callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
+            },
+            title: { display: true, text: "Sellable Units", color: "#555", font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    // Build summary table
+    var tbody = document.getElementById("tab1TableBody");
+    MONTHS_RAW.forEach(function(ym, i) {
+      var vizio = VIZIO[i];
+      var resto = RESTO[i];
+      var total = vizio + resto;
+      var pct = ((vizio / total) * 100).toFixed(1);
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>" + formatMonth(ym) + "</td>" +
+        "<td>" + vizio.toLocaleString() + "</td>" +
+        "<td>" + resto.toLocaleString() + "</td>" +
+        "<td>" + total.toLocaleString() + "</td>" +
+        "<td>" + pct + "%</td>";
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 2 — OpenCell New TVs
+  // ════════════════════════════════════════════════════════
+  function initTab2() {
+    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var UNITS = [1570, 2992, 2390, 2546, 1601, 1424, 151, 2261, 4439, 2461, 462];
+    var LABELS = MONTHS_RAW.map(formatMonth);
+    var BAR_COLORS = UNITS.map(function(_, i) { return i === 6 ? "#c9c9c9" : "#5aafa0"; });
+
+    var ctx = document.getElementById("tab2Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: LABELS,
+        datasets: [
+          {
+            label: "New TVs Generated",
+            data: UNITS,
+            backgroundColor: BAR_COLORS,
+            borderRadius: 2,
+            borderSkipped: false
+          },
+          {
+            type: "line", label: "Total",
+            data: [1570,2992,2390,2546,1601,1424,151,2261,4439,2461,462],
+            borderColor: "#c0392b", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 0,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: { display: false },
+          legend: {
+            position: "top",
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12 }
+          },
+          tooltip: {
+            backgroundColor: "#ffffff",
+            borderColor: "#d0d0d0",
+            borderWidth: 1,
+            titleColor: "#1a1a2e",
+            bodyColor: "#333",
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                var note = context.dataIndex === 6 ? " (shutdown)" : (context.dataIndex === 0 || context.dataIndex === 10 ? " (partial)" : "");
+                return " " + context.parsed.y.toLocaleString() + " units" + note;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          y: {
+            beginAtZero: true,
+            grid: { color: "#e0e0e0" },
+            ticks: {
+              color: "#444", font: { size: 11 },
+              callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
+            },
+            title: { display: true, text: "Units", color: "#555", font: { size: 11 } }
+          }
+        }
+      }
+    });
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 3 — Técnicos (DMT Repairs)
+  // ════════════════════════════════════════════════════════
+  function initTab3() {
+    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var ONN   = [282, 150, 313, 664, 710, 253, 325, 267, 344, 763, 999];
+    var VIZIO = [172,  41, 147, 305, 332, 198, 292, 343, 363, 670, 970];
+    var RESTO = [449, 642, 486, 571, 796, 308, 317, 328, 386, 788, 1099];
+    var LABELS = MONTHS_RAW.map(formatMonth);
+
+    var ctx = document.getElementById("tab3Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: LABELS,
+        datasets: [
+          { label: "Resto", data: RESTO, backgroundColor: "#c9d8e8", borderRadius: 2, borderSkipped: false, order: 3 },
+          { label: "Vizio", data: VIZIO, backgroundColor: "#5aafa0", borderRadius: 2, borderSkipped: false, order: 2 },
+          { label: "Onn",   data: ONN,   backgroundColor: "#1e5f99", borderRadius: 2, borderSkipped: false, order: 1 },
+          { type: "line", label: "Total",
+            data: [903,833,946,1540,1838,759,934,938,1093,2221,3068],
+            borderColor: "#c0392b", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 0,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } } }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          datalabels: { display: false },
+          legend: { position: "top", labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12 } },
+          tooltip: {
+            backgroundColor: "#ffffff", borderColor: "#d0d0d0", borderWidth: 1,
+            titleColor: "#1a1a2e", bodyColor: "#333", padding: 12,
+            callbacks: {
+              label: function(context) {
+                var v = context.parsed.y;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return "Total: " + total.toLocaleString();
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          y: {
+            stacked: true, beginAtZero: true, grid: { color: "#e0e0e0" },
+            ticks: { color: "#444", font: { size: 11 }, callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(1) + "k" : v; } },
+            title: { display: true, text: "Units Repaired", color: "#555", font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    var tbody = document.getElementById("tab3TableBody");
+    MONTHS_RAW.forEach(function(ym, i) {
+      var onn = ONN[i], vizio = VIZIO[i], resto = RESTO[i];
+      var total = onn + vizio + resto;
+      var pct = (((onn + vizio) / total) * 100).toFixed(1);
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>" + formatMonth(ym) + "</td>" +
+        "<td>" + onn.toLocaleString() + "</td>" +
+        "<td>" + vizio.toLocaleString() + "</td>" +
+        "<td>" + resto.toLocaleString() + "</td>" +
+        "<td>" + total.toLocaleString() + "</td>" +
+        "<td>" + pct + "%</td>";
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 4 — Units Delivered (B2B)
+  // ════════════════════════════════════════════════════════
+  function initTab4() {
+    var MONTHS = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+
+    var SERIES = {
+      "B2B":               [5237, 8339, 6198, 6528, 9969, 7230, 7258, 7099, 3043, 4335, 6004],
+      "B2C":               [  53,  147,  143,   66,  169,  245,  339,  357,  216,   27,   88],
+      "CALVARY (B2B DMA)": [   0,    0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0],
+      "FBA":               [1949, 4132, 2646, 6220, 4670, 4303, 2894, 4962, 6428, 9305, 2800],
+      "FULL":              [ 562, 2357, 1465, 3324, 4872, 2622, 2663, 3905, 1545, 1072, 1408],
+      "Internal Use":      [  10,    2,    8,   33,   87,    4,   45,   16,  242,   50,    9],
+      "Recycling":         [   0,    0,    0,    0,    0,    0,    0, 7978,18135,17136,14637],
+      "TRG Returns - HV":  [   0,    0,    0,    0, 1311, 2864, 1722, 9492, 8200, 2836, 3017],
+      "TRG Returns - TVs": [   0,  673,  681, 5836, 4811, 6160,25842,10396,10881, 6368,10992],
+      "UPT (B2B DMA)":     [1757,  945, 2494, 4629, 4526, 4282, 6398, 1433, 3669, 2429, 2426]
+    };
+
+    var TOTALS = {
+      "B2B":               71240,
+      "B2C":                1850,
+      "CALVARY (B2B DMA)":  4698,
+      "FBA":               50309,
+      "FULL":              25795,
+      "Internal Use":        506,
+      "Recycling":         57886,
+      "TRG Returns - HV":  29442,
+      "TRG Returns - TVs": 82640,
+      "UPT (B2B DMA)":     34988
+    };
+
+    var GRAND_TOTAL = 359354;
+
+    var PALETTE = [
+      "#3d7ebf",
+      "#5aafa0",
+      "#e07b6a",
+      "#7a6bbf",
+      "#4fa37a",
+      "#c47a3a",
+      "#5888a8",
+      "#a85a7a",
+      "#7aaa5a",
+      "#8888a8"
+    ];
+
+    var categories = Object.keys(SERIES);
+
+    var datasets = categories.map(function(cat, i) {
+      return {
+        label: cat,
+        data: SERIES[cat],
+        backgroundColor: PALETTE[i],
+        borderColor: "rgba(0,0,0,0.2)",
+        borderWidth: 0.5,
+        borderRadius: 2,
+        borderSkipped: false
+      };
+    });
+
+    datasets.push({
+      type: "line", label: "Total",
+      data: [9568,16595,13635,26636,30415,27710,48775,46740,53367,44532,41381],
+      borderColor: "#c0392b", backgroundColor: "transparent",
+      borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+      pointBorderColor: "#fff", pointBorderWidth: 1.5,
+      tension: 0.3, fill: false, order: 0,
+      datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+        font: { size: 10, weight: "600" },
+        formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+    });
+
+    var ctx = document.getElementById("tab4Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: { labels: MONTHS, datasets: datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          datalabels: { display: false },
+          legend: {
+            position: "top",
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12, usePointStyle: false }
+          },
+          tooltip: {
+            backgroundColor: "#ffffff",
+            borderColor: "#d0d0d0",
+            borderWidth: 1,
+            titleColor: "#1a1a2e",
+            bodyColor: "#333",
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                var v = context.parsed.y;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return "Total: " + total.toLocaleString();
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          y: {
+            stacked: true,
+            grid: { color: "#e0e0e0" },
+            ticks: {
+              color: "#444", font: { size: 11 },
+              callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
+            },
+            title: { display: true, text: "Units Delivered", color: "#555", font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    // Build summary table
+    var sorted = categories.slice().sort(function(a, b) { return TOTALS[b] - TOTALS[a]; });
+    var tbody = document.getElementById("tab4SummaryBody");
+    sorted.forEach(function(cat) {
+      var total = TOTALS[cat];
+      var pct = ((total / GRAND_TOTAL) * 100).toFixed(1);
+      var color = PALETTE[categories.indexOf(cat)];
+      var barWidth = Math.round((total / GRAND_TOTAL) * 120);
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td><div class='cat-cell'><span class='swatch' style='background:" + color + "'></span>" + cat + "</div></td>" +
+        "<td><span class='bar-pct' style='width:" + barWidth + "px; background:" + color + "'></span>" + total.toLocaleString() + "</td>" +
+        "<td>" + pct + "%</td>";
+      tbody.appendChild(tr);
+    });
+    document.getElementById("tab4GrandTotalUnits").textContent = GRAND_TOTAL.toLocaleString();
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 5 — B2B-DMA
+  // ════════════════════════════════════════════════════════
+  function initTab5() {
+    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var UPT     = [1757, 945, 2494, 4629, 4526, 4282, 6398, 1433, 3669, 2429, 2426];
+    var CALVARY = [   0,   0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0];
+    var LABELS = MONTHS_RAW.map(formatMonth);
+
+    var ctx = document.getElementById("tab5Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: LABELS,
+        datasets: [
+          {
+            label: "UPT Inc",
+            data: UPT,
+            backgroundColor: "#8888a8",
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 2
+          },
+          {
+            label: "Calvary Corp",
+            data: CALVARY,
+            backgroundColor: "#e07b6a",
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 1
+          },
+          {
+            type: "line", label: "Total",
+            data: [1757,945,2494,4629,4526,4282,8012,2535,4677,3403,2426],
+            borderColor: "#c0392b", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 0,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          datalabels: { display: false },
+          legend: {
+            position: "top",
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12 }
+          },
+          tooltip: {
+            backgroundColor: "#ffffff",
+            borderColor: "#d0d0d0",
+            borderWidth: 1,
+            titleColor: "#1a1a2e",
+            bodyColor: "#333",
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                var v = context.parsed.y;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return "Total: " + total.toLocaleString();
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          y: {
+            stacked: true,
+            beginAtZero: true,
+            grid: { color: "#e0e0e0" },
+            ticks: {
+              color: "#444", font: { size: 11 },
+              callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
+            },
+            title: { display: true, text: "Units Shipped", color: "#555", font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    // Build table
+    var tbody = document.getElementById("tab5TableBody");
+    MONTHS_RAW.forEach(function(ym, i) {
+      var upt = UPT[i];
+      var cal = CALVARY[i];
+      var total = upt + cal;
+      var pct = total > 0 ? ((cal / total) * 100).toFixed(1) + "%" : "—";
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>" + formatMonth(ym) + "</td>" +
+        "<td>" + upt.toLocaleString() + "</td>" +
+        "<td>" + (cal > 0 ? cal.toLocaleString() : "—") + "</td>" +
+        "<td>" + total.toLocaleString() + "</td>" +
+        "<td>" + pct + "</td>";
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ════════════════════════════════════════════════════════
+  // TAB 6 — B2C Orders
+  // ════════════════════════════════════════════════════════
+  function initTab6() {
+    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var ML    = [1892, 1685, 2047, 2324, 3882, 2454, 2464, 2604, 2388, 2508, 2124];
+    var AMAZON = [1186, 836, 826, 1304, 2570, 1733, 1153, 1084, 1498, 904, 1014];
+    var OTHER  = [0, 4, 0, 0, 6, 28, 5, 0, 3, 0, 0];
+    var LABELS = MONTHS_RAW.map(formatMonth);
+
+    var ctx = document.getElementById("tab6Chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: LABELS,
+        datasets: [
+          {
+            label: "MercadoLibre",
+            data: ML,
+            backgroundColor: "#5aafa0",
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 2
+          },
+          {
+            label: "Amazon",
+            data: AMAZON,
+            backgroundColor: "#1e5f99",
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 1
+          },
+          {
+            label: "Other",
+            data: OTHER,
+            backgroundColor: "#c9c9c9",
+            borderRadius: 2,
+            borderSkipped: false,
+            order: 0
+          },
+          {
+            type: "line", label: "Total",
+            data: [3078,2525,2873,3628,6458,4215,3622,3688,3889,3412,3138],
+            borderColor: "#c0392b", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: -1,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          datalabels: { display: false },
+          legend: {
+            position: "top",
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12 }
+          },
+          tooltip: {
+            backgroundColor: "#ffffff",
+            borderColor: "#d0d0d0",
+            borderWidth: 1,
+            titleColor: "#1a1a2e",
+            bodyColor: "#333",
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                var v = context.parsed.y;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return "Total: " + total.toLocaleString();
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          y: {
+            stacked: true,
+            beginAtZero: true,
+            grid: { color: "#e0e0e0" },
+            ticks: {
+              color: "#444", font: { size: 11 },
+              callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(1) + "k" : v; }
+            },
+            title: { display: true, text: "Units Shipped", color: "#555", font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    // Build table
+    var tbody = document.getElementById("tab6TableBody");
+    MONTHS_RAW.forEach(function(ym, i) {
+      var ml = ML[i];
+      var amz = AMAZON[i];
+      var oth = OTHER[i];
+      var total = ml + amz + oth;
+      var pct = ((ml / total) * 100).toFixed(1);
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>" + formatMonth(ym) + "</td>" +
+        "<td>" + ml.toLocaleString() + "</td>" +
+        "<td>" + amz.toLocaleString() + "</td>" +
+        "<td>" + (oth > 0 ? oth.toLocaleString() : "—") + "</td>" +
+        "<td>" + total.toLocaleString() + "</td>" +
+        "<td>" + pct + "%</td>";
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Initialize the first tab chart on page load
+  window.addEventListener('DOMContentLoaded', function() {
+    initChart(1);
+  });
+  </script>
+
+  <button id="go-home" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <script>
+    var goHome = document.getElementById("go-home");
+    window.addEventListener("scroll", function() {
+      goHome.classList.toggle("visible", window.scrollY > 300);
+    });
+  </script>
+</body>
+</html>
