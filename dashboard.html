@@ -390,11 +390,10 @@
       <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="panel-1" onclick="showTab(1)">Incoming</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-2" onclick="showTab(2)">Sorting</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-3" onclick="showTab(3)">FFT</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">OpenCell</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-5" onclick="showTab(5)">Técnicos (DMT)</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-6" onclick="showTab(6)">B2B</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-7" onclick="showTab(7)">B2B-SLG</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-8" onclick="showTab(8)">B2C</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">OpenCell Dept.</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-5" onclick="showTab(5)">B2B</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-6" onclick="showTab(6)">B2B-SLG</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-7" onclick="showTab(7)">B2C</button>
     </div>
 
     <!-- Tab panels -->
@@ -646,108 +645,19 @@
       </div><!-- /panel-3 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 4 — OpenCell (report_opencell_new_tvs.html)
+           TAB 4 — OpenCell Dept. (Screen Swaps + DMT Repairs)
       ══════════════════════════════════════════════════════ -->
       <div class="tab-panel" id="panel-4" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
-            <h1>New TVs Generated — OpenCell Screen Swaps</h1>
-            <p>OpenCell Department &nbsp;·&nbsp; Jul 2025 – May 2026 &nbsp;·&nbsp; 22,297 units</p>
+            <h1>OpenCell Department — Screen Swaps &amp; DMT Repairs</h1>
+            <p>OpenCell Dept. &nbsp;·&nbsp; Jul 2025 – May 2026 &nbsp;·&nbsp; 37,370 units &nbsp;·&nbsp; Screen swaps · Repairs · Kit separation · Version capture</p>
           </div>
 
           <div class="kpi-hero">
-            <span class="kpi-value">22,297</span>
-            <span class="kpi-label">Total New TVs Manufactured</span>
-          </div>
-
-          <div class="chart-wrapper">
-            <canvas id="tab3Chart"></canvas>
-          </div>
-
-          <div class="table-section">
-            <h2>Monthly Breakdown</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>New TVs</th>
-                  <th>vs. Active Avg</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="muted"><td>Jul 2025 (partial)</td><td>1,570</td><td>−29%</td></tr>
-                <tr><td>Aug 2025</td><td>2,992</td><td>+35%</td></tr>
-                <tr><td>Sep 2025</td><td>2,390</td><td>+8%</td></tr>
-                <tr><td>Oct 2025</td><td>2,546</td><td>+15%</td></tr>
-                <tr><td>Nov 2025</td><td>1,601</td><td>−28%</td></tr>
-                <tr><td>Dec 2025</td><td>1,424</td><td>−36%</td></tr>
-                <tr class="muted"><td>Jan 2026 (lack of screens)</td><td>151</td><td>n/a</td></tr>
-                <tr><td>Feb 2026</td><td>2,261</td><td>+2%</td></tr>
-                <tr><td>Mar 2026</td><td>4,439</td><td>+100%</td></tr>
-                <tr><td>Apr 2026</td><td>2,461</td><td>+11%</td></tr>
-                <tr class="muted"><td>May 2026 (partial)</td><td>462</td><td>−79%</td></tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td>Grand Total</td>
-                  <td>22,297</td>
-                  <td>&nbsp;</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-
-          <div class="insight-section">
-            <h2>Key Insights</h2>
-            <div class="insight-grid">
-
-              <div class="insight-card">
-                <div class="insight-label">Total Output</div>
-                <div class="insight-title">22,297 new TVs generated in 11 months</div>
-                <div class="insight-body">Excluding January 2026 (lack of screens), the active monthly average is 2,215 units across 10 months — confirming a steady, if modest, screen-swap operation running in parallel with the main FFT line.</div>
-              </div>
-
-              <div class="insight-card">
-                <div class="insight-label">Peak Month</div>
-                <div class="insight-title">March 2026 — 4,439 units, 2× the active average</div>
-                <div class="insight-body">March is the only month to surpass 4,000 units and stands at double the 10-month average. No comparable spike in any adjacent month, suggesting a concentrated production push rather than a sustained ramp.</div>
-              </div>
-
-              <div class="insight-card">
-                <div class="insight-label">January 2026</div>
-                <div class="insight-title">Lack of screens — 151 units, not a demand signal</div>
-                <div class="insight-body">January recorded only 151 units — 93% below the active average. This reflects a holiday and scheduling halt, consistent with the same pattern seen across other departments that month.</div>
-              </div>
-
-              <div class="insight-card">
-                <div class="insight-label">Recent Trend</div>
-                <div class="insight-title">Output pulled back to the active-average range post-March</div>
-                <div class="insight-body">April 2026 returned to 2,461 units (−45% from March, but in line with the annual average). May is a partial month at 462 units through May 28 — end-of-month volume will determine whether the pace held.</div>
-              </div>
-
-            </div>
-          </div>
-
-          <p class="footer-note">Source: OpenCell Dept. · Each row = 1 completed screen swap · Jan 2026 lack of screens and partial months (Jul 2025, May 2026) noted · Report date: May 28, 2026</p>
-
-        </div>
-      </div><!-- /panel-4 -->
-
-      <!-- ══════════════════════════════════════════════════════
-           TAB 5 — Técnicos (DMT)
-      ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-5" role="tabpanel">
-        <div class="card">
-
-          <div class="card-header">
-            <h1>DMT Repairs by Month — Onn vs. Vizio vs. Rest of Brands</h1>
-            <p>Técnicos Department · Jul 2025 – May 2026 · 15,073 units repaired</p>
-          </div>
-
-          <div class="kpi-hero">
-            <span class="kpi-value">15,073</span>
-            <span class="kpi-label">Total TVs Repaired</span>
+            <span class="kpi-value">37,370</span>
+            <span class="kpi-label">Total Units Processed — OpenCell Department</span>
           </div>
 
           <div class="chart-wrapper">
@@ -760,22 +670,22 @@
               <thead>
                 <tr>
                   <th>Month</th>
-                  <th>Onn</th>
-                  <th>Vizio</th>
-                  <th>Resto</th>
+                  <th>Screen Swaps</th>
+                  <th>Repairs: Onn</th>
+                  <th>Repairs: Vizio</th>
+                  <th>Repairs: Resto</th>
                   <th>Total</th>
-                  <th>Onn+Vizio %</th>
                 </tr>
               </thead>
               <tbody id="tab4TableBody"></tbody>
               <tfoot>
                 <tr>
                   <td>Grand Total</td>
+                  <td>22,297</td>
                   <td>5,070</td>
                   <td>3,833</td>
                   <td>6,170</td>
-                  <td>15,073</td>
-                  <td>58.7%</td>
+                  <td>37,370</td>
                 </tr>
               </tfoot>
             </table>
@@ -786,41 +696,74 @@
             <div class="insight-grid">
 
               <div class="insight-card">
-                <div class="insight-label">Brand Mix</div>
-                <div class="insight-title">Onn and Vizio account for 58.7% of all DMT repairs</div>
-                <div class="insight-body">Onn leads with 5,070 units (33.6%) and Vizio follows at 3,833 (25.4%). The remaining 6,170 units span 25 other brands — Samsung (2,228), TCL (1,930), and Hisense (830) being the next largest.</div>
+                <div class="insight-label">Combined Output</div>
+                <div class="insight-title">37,370 units processed — screen swaps (60%) and repairs (40%) running in parallel</div>
+                <div class="insight-body">The OpenCell department delivered 22,297 new TVs from screen swaps and 15,073 DMT repairs Jul 2025–May 2026. Both sub-operations ran simultaneously, each feeding separate output streams — new inventory from swaps, repaired units from DMT.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Ramp-Up</div>
-                <div class="insight-title">Volume tripled from Q3 2025 to May 2026</div>
-                <div class="insight-body">Average monthly repairs in Jul–Sep 2025 was 894 units. By Apr–May 2026 the operation reached 2,221 and 3,068 units respectively — the highest months on record, suggesting sustained capacity growth across the full period.</div>
+                <div class="insight-label">Screen Swap Peak</div>
+                <div class="insight-title">March 2026 — 4,439 new TVs, the only month above 4,000 and 2× the active average</div>
+                <div class="insight-body">Excluding January 2026 (lack of screens), the 10-month average is 2,215 swaps/month. March hit 4,439 — a concentrated production push. No comparable spike in adjacent months suggests a deliberate batch run, not a sustained ramp.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Vizio Trend</div>
-                <div class="insight-title">Vizio surpassed Onn in Feb–Mar 2026 before both peaked in May</div>
-                <div class="insight-body">From Jul 2025 to Jan 2026 Onn consistently led Vizio. In February and March 2026 Vizio overtook Onn (343 vs 267, 363 vs 344). Both converged sharply in Apr–May 2026, with Onn reclaiming the lead at 999 vs 970 in May.</div>
+                <div class="insight-label">Repair Acceleration</div>
+                <div class="insight-title">DMT repairs tripled — from ~900/month in Q3 2025 to 3,068 in May 2026</div>
+                <div class="insight-body">Average monthly repairs in Jul–Sep 2025 was 894 units. By April–May 2026 the operation reached 2,221 and 3,068 respectively — the highest months on record. May 2026 already surpasses every prior month with the month still open.</div>
               </div>
 
               <div class="insight-card">
-                <div class="insight-label">Acceleration</div>
-                <div class="insight-title">May 2026 is the peak at 3,068 units — with the month still open</div>
-                <div class="insight-body">May 2026 (through May 28) already surpassed every prior month at 3,068 units, up 38% from April's 2,221. If the pace holds through month-end, May will close well above 3,000 — establishing a new operational baseline for Q2 2026.</div>
+                <div class="insight-label">Independent Supply Chains</div>
+                <div class="insight-title">January 2026 — swaps dropped to 151 units, repairs held at 934 — two ops, two inputs</div>
+                <div class="insight-body">The January screen shortage brought swaps to near-zero without affecting DMT. Repairs depend on incoming broken TVs; swaps depend on screen inventory. A disruption in one does not cascade to the other — an operational resilience worth preserving.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">Brand Concentration</div>
+                <div class="insight-title">Onn + Vizio = 58.7% of DMT repairs — Samsung, TCL, Hisense complete the Top 5</div>
+                <div class="insight-body">Of 15,073 total repairs, Onn accounts for 5,070 (33.6%) and Vizio for 3,833 (25.4%). Samsung (2,228), TCL (1,930), and Hisense (830) are next. The top 5 brands represent 91.8% of all repair volume — planning capacity around them covers the vast majority of throughput.</div>
               </div>
 
             </div>
           </div>
 
-          <p class="footer-note">Source: Técnicos sheet · Each row = 1 unit repaired · 27 brands total · Report date: May 28, 2026</p>
+          <div class="table-section" style="margin-top:2rem">
+            <h2>Headcount by Activity — How the Dept. Deploys Its People</h2>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="tab4HCChart"></canvas>
+          </div>
+
+          <div class="insight-section">
+            <h2>Headcount Insight</h2>
+            <div class="insight-grid">
+
+              <div class="insight-card">
+                <div class="insight-label">Activity Shift</div>
+                <div class="insight-title">OpenCell dominated Oct–Dec 2025; DMT took over from Jan 2026 and peaked at 246 in May</div>
+                <div class="insight-body">The dept started as primarily a screen-swap operation (OpenCell = 60–70% of HC in Oct–Dec 2025). From January 2026, DMT repairs became the primary headcount absorber. By May 2026, DMT (246) represents 59% of the total department headcount — a structural rebalancing, not a temporary spike.</div>
+              </div>
+
+              <div class="insight-card">
+                <div class="insight-label">New Activities</div>
+                <div class="insight-title">Kits (Mar 2026) and Versiones (Feb 2026) signal operational expansion — not just volume growth</div>
+                <div class="insight-body">Kit separation (Kits/OC) appeared in March 2026 and grew to 129 person-days in April — the third-largest activity by May. Version capture (Versiones/OC) began in February. These are new structured activities, not ad-hoc assignments, which means the dept's operational footprint is actively expanding.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="footer-note">Source: OpenCell Dept. · Screen swaps: each row = 1 completed swap · DMT Repairs: each row = 1 unit repaired · 27 brands total · Jan 2026 lack of screens noted · Headcount: sum of daily HC assignments per activity per month · Report date: May 28, 2026</p>
 
         </div>
-      </div><!-- /panel-5 -->
+      </div><!-- /panel-4 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 6 — B2B (report_units_delivered.html)
+           TAB 5 — B2B (report_units_delivered.html)
       ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-6" role="tabpanel">
+      <div class="tab-panel" id="panel-5" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
@@ -892,12 +835,12 @@
           <p class="footer-note">Note: "Interal Use" (typo in source) merged into "Internal Use". Rows with 0 units included in axis.</p>
 
         </div>
-      </div><!-- /panel-6 -->
+      </div><!-- /panel-5 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 7 — B2B-SLG (report_b2b_dma.html)
+           TAB 6 — B2B-SLG (report_b2b_dma.html)
       ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-7" role="tabpanel">
+      <div class="tab-panel" id="panel-6" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
@@ -973,12 +916,12 @@
           <p class="footer-note">Source: MTY UPT inc Shipments · 2 Calvary rows (2026-05-29, qty pending) excluded · Report date: May 28, 2026</p>
 
         </div>
-      </div><!-- /panel-7 -->
+      </div><!-- /panel-6 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 8 — B2C (report_b2c_orders.html)
+           TAB 7 — B2C (report_b2c_orders.html)
       ══════════════════════════════════════════════════════ -->
-      <div class="tab-panel" id="panel-8" role="tabpanel">
+      <div class="tab-panel" id="panel-7" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
@@ -1058,7 +1001,7 @@
           <p class="footer-note">Source: Shipping B2C-TVs · MercadoLibre via source column (apantallatemx, MiTechnologiesComercial, lutemamexico) · Amazon via Autobot accounts · Report date: May 28, 2026</p>
 
         </div>
-      </div><!-- /panel-8 -->
+      </div><!-- /panel-7 -->
 
     </div><!-- /tab-panels -->
   </div><!-- /tab-shell -->
@@ -1067,7 +1010,7 @@
        TAB NAVIGATION
   ══════════════════════════════════════════════════════════════ -->
   <script>
-  const TAB_COUNT = 8;
+  const TAB_COUNT = 7;
   const initialized = {};
 
   function showTab(n) {
@@ -1112,11 +1055,10 @@
     if (tabNum === 1) { initIncoming(); }
     else if (tabNum === 2) { initSorting(); }
     else if (tabNum === 3) { initTab2(); }
-    else if (tabNum === 4) { initTab3(); }
-    else if (tabNum === 5) { initTab4(); }
-    else if (tabNum === 6) { initTab5(); }
-    else if (tabNum === 7) { initTab6(); }
-    else if (tabNum === 8) { initTab7(); }
+    else if (tabNum === 4) { initOpenCellDept(); }
+    else if (tabNum === 5) { initTab5(); }
+    else if (tabNum === 6) { initTab6(); }
+    else if (tabNum === 7) { initTab7(); }
   }
 
   // ── SHARED MONTH FORMATTER ────────────────────────────────────
@@ -1562,30 +1504,50 @@
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 3 — OpenCell New TVs
+  // TAB 4 — OpenCell Dept. (Screen Swaps + DMT Repairs)
   // ════════════════════════════════════════════════════════
-  function initTab3() {
+  function initOpenCellDept() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var UNITS = [1570, 2992, 2390, 2546, 1601, 1424, 151, 2261, 4439, 2461, 462];
+    var OPENCELL = [1570, 2992, 2390, 2546, 1601, 1424,  151, 2261, 4439, 2461,  462];
+    var ONN      = [ 282,  150,  313,  664,  710,  253,  325,  267,  344,  763,  999];
+    var VIZIO    = [ 172,   41,  147,  305,  332,  198,  292,  343,  363,  670,  970];
+    var RESTO    = [ 449,  642,  486,  571,  796,  308,  317,  328,  386,  788, 1099];
+    var TOTAL    = [2473, 3825, 3336, 4086, 3439, 2183, 1085, 3199, 5532, 4682, 3530];
     var LABELS = MONTHS_RAW.map(formatMonth);
-    var BAR_COLORS = UNITS.map(function(_, i) { return i === 6 ? "#c9c9c9" : "#5aafa0"; });
 
-    var ctx = document.getElementById("tab3Chart").getContext("2d");
+    var ctx = document.getElementById("tab4Chart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
         labels: LABELS,
         datasets: [
           {
-            label: "New TVs Generated",
-            data: UNITS,
-            backgroundColor: BAR_COLORS,
-            borderRadius: 2,
-            borderSkipped: false
+            label: "Repairs: Resto",
+            data: RESTO,
+            backgroundColor: "#c9d8e8",
+            borderRadius: 2, borderSkipped: false, order: 5
+          },
+          {
+            label: "Repairs: Vizio",
+            data: VIZIO,
+            backgroundColor: "#5aafa0",
+            borderRadius: 2, borderSkipped: false, order: 4
+          },
+          {
+            label: "Repairs: Onn",
+            data: ONN,
+            backgroundColor: "#1e5f99",
+            borderRadius: 2, borderSkipped: false, order: 3
+          },
+          {
+            label: "Screen Swaps",
+            data: OPENCELL,
+            backgroundColor: "#4fa37a",
+            borderRadius: 2, borderSkipped: false, order: 2
           },
           {
             type: "line", label: "Total",
-            data: [1570,2992,2390,2546,1601,1424,151,2261,4439,2461,462],
+            data: TOTAL,
             borderColor: "#c0392b", backgroundColor: "transparent",
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
@@ -1599,11 +1561,12 @@
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
         plugins: {
           datalabels: { display: false },
           legend: {
             position: "top",
-            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12 }
+            labels: { color: "#222", font: { size: 11 }, padding: 14, boxWidth: 12, boxHeight: 12, usePointStyle: false }
           },
           tooltip: {
             backgroundColor: "#ffffff",
@@ -1614,15 +1577,21 @@
             padding: 12,
             callbacks: {
               label: function(context) {
-                var note = context.dataIndex === 6 ? " (lack of screens)" : (context.dataIndex === 0 || context.dataIndex === 10 ? " (partial)" : "");
-                return " " + context.parsed.y.toLocaleString() + " units" + note;
+                var v = context.parsed.y;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+              },
+              footer: function(items) {
+                var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total.toLocaleString() : null;
               }
             }
           }
         },
         scales: {
-          x: { grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
+          x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
           y: {
+            stacked: true,
             beginAtZero: true,
             grid: { color: "#e0e0e0" },
             ticks: {
@@ -1634,36 +1603,65 @@
         }
       }
     });
+
+    // Build table
+    var tbody = document.getElementById("tab4TableBody");
+    MONTHS_RAW.forEach(function(ym, i) {
+      var tr = document.createElement("tr");
+      var isJan = ym === "2026-01";
+      if (isJan) tr.className = "muted";
+      tr.innerHTML =
+        "<td>" + formatMonth(ym) + (isJan ? " (lack of screens)" : "") + "</td>" +
+        "<td>" + OPENCELL[i].toLocaleString() + "</td>" +
+        "<td>" + ONN[i].toLocaleString() + "</td>" +
+        "<td>" + VIZIO[i].toLocaleString() + "</td>" +
+        "<td>" + RESTO[i].toLocaleString() + "</td>" +
+        "<td>" + TOTAL[i].toLocaleString() + "</td>";
+      tbody.appendChild(tr);
+    });
+
+    initOpenCellHC();
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 4 — Técnicos (DMT Repairs)
+  // TAB 4b — OpenCell Dept. Headcount by Activity
   // ════════════════════════════════════════════════════════
-  function initTab4() {
-    var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var ONN   = [282, 150, 313, 664, 710, 253, 325, 267, 344, 763, 999];
-    var VIZIO = [172,  41, 147, 305, 332, 198, 292, 343, 363, 670, 970];
-    var RESTO = [449, 642, 486, 571, 796, 308, 317, 328, 386, 788, 1099];
-    var LABELS = MONTHS_RAW.map(formatMonth);
+  function initOpenCellHC() {
+    var MONTHS_RAW = ["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    var OC_HC   = [ 94, 190, 207,  56, 137, 191, 158,  47];
+    var DMT_HC  = [ 38, 229,  71, 182,  82,  94, 198, 246];
+    var FFT_HC  = [  0,   0,  23,  32,  77,  77,  54,  22];
+    var VER_HC  = [  0,   0,   0,   0,  75,  67,   0,  21];
+    var KIT_HC  = [  0,   0,   0,   0,   0,  65, 129,  80];
+    var SORT_HC = [  0,   0,   0,  45,  23,   0,   0,   0];
+    var DMA_HC  = [  0,   0,   0,  62,   0,   0,   0,   0];
+    var TOTAL   = [132, 419, 301, 377, 394, 494, 539, 416];
+    var LABELS  = MONTHS_RAW.map(formatMonth);
 
-    var ctx = document.getElementById("tab4Chart").getContext("2d");
+    var ctx = document.getElementById("tab4HCChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
         labels: LABELS,
         datasets: [
-          { label: "Resto", data: RESTO, backgroundColor: "#c9d8e8", borderRadius: 2, borderSkipped: false, order: 3 },
-          { label: "Vizio", data: VIZIO, backgroundColor: "#5aafa0", borderRadius: 2, borderSkipped: false, order: 2 },
-          { label: "Onn",   data: ONN,   backgroundColor: "#1e5f99", borderRadius: 2, borderSkipped: false, order: 1 },
-          { type: "line", label: "Total",
-            data: [903,833,946,1540,1838,759,934,938,1093,2221,3068],
+          { label: "OpenCell",     data: OC_HC,   backgroundColor: "#4fa37a", borderRadius: 2, borderSkipped: false, order: 8 },
+          { label: "DMT",          data: DMT_HC,  backgroundColor: "#1e5f99", borderRadius: 2, borderSkipped: false, order: 7 },
+          { label: "FFT/OC",       data: FFT_HC,  backgroundColor: "#8eb8d4", borderRadius: 2, borderSkipped: false, order: 6 },
+          { label: "Versiones",    data: VER_HC,  backgroundColor: "#e07b39", borderRadius: 2, borderSkipped: false, order: 5 },
+          { label: "Kits",         data: KIT_HC,  backgroundColor: "#7a6bbf", borderRadius: 2, borderSkipped: false, order: 4 },
+          { label: "Sorting",      data: SORT_HC, backgroundColor: "#c47a3a", borderRadius: 2, borderSkipped: false, order: 3 },
+          { label: "DMA Disposal", data: DMA_HC,  backgroundColor: "#a85a7a", borderRadius: 2, borderSkipped: false, order: 2 },
+          {
+            type: "line", label: "Total HC",
+            data: TOTAL,
             borderColor: "#c0392b", backgroundColor: "transparent",
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
             tension: 0.3, fill: false, order: 0,
             datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
               font: { size: 10, weight: "600" },
-              formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } } }
+              formatter: function(v) { return v; } }
+          }
         ]
       },
       options: {
@@ -1679,11 +1677,12 @@
             callbacks: {
               label: function(context) {
                 var v = context.parsed.y;
-                return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
+                return v > 0 ? " " + context.dataset.label + ": " + v + " person-days" : null;
               },
               footer: function(items) {
-                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
-                return "Total: " + total.toLocaleString();
+                var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total + " person-days" : null;
               }
             }
           }
@@ -1692,27 +1691,11 @@
           x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
           y: {
             stacked: true, beginAtZero: true, grid: { color: "#e0e0e0" },
-            ticks: { color: "#444", font: { size: 11 }, callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(1) + "k" : v; } },
-            title: { display: true, text: "Units Repaired", color: "#555", font: { size: 11 } }
+            ticks: { color: "#444", font: { size: 11 } },
+            title: { display: true, text: "Person-Days Assigned", color: "#555", font: { size: 11 } }
           }
         }
       }
-    });
-
-    var tbody = document.getElementById("tab4TableBody");
-    MONTHS_RAW.forEach(function(ym, i) {
-      var onn = ONN[i], vizio = VIZIO[i], resto = RESTO[i];
-      var total = onn + vizio + resto;
-      var pct = (((onn + vizio) / total) * 100).toFixed(1);
-      var tr = document.createElement("tr");
-      tr.innerHTML =
-        "<td>" + formatMonth(ym) + "</td>" +
-        "<td>" + onn.toLocaleString() + "</td>" +
-        "<td>" + vizio.toLocaleString() + "</td>" +
-        "<td>" + resto.toLocaleString() + "</td>" +
-        "<td>" + total.toLocaleString() + "</td>" +
-        "<td>" + pct + "%</td>";
-      tbody.appendChild(tr);
     });
   }
 
@@ -1848,7 +1831,7 @@
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 6 — B2B-SLG
+  // TAB 5 — B2B-SLG
   // ════════════════════════════════════════════════════════
   function initTab6() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
@@ -1955,7 +1938,7 @@
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 7 — B2C Orders
+  // TAB 5 — B2C Orders
   // ════════════════════════════════════════════════════════
   function initTab7() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
