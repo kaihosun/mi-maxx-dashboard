@@ -393,7 +393,7 @@
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">OpenCell</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-5" onclick="showTab(5)">Técnicos (DMT)</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-6" onclick="showTab(6)">B2B</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-7" onclick="showTab(7)">B2B-DMA</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-7" onclick="showTab(7)">B2B-SLG</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-8" onclick="showTab(8)">B2C</button>
     </div>
 
@@ -546,8 +546,8 @@
 
               <div class="insight-card">
                 <div class="insight-label">Broken — 49.5%</div>
-                <div class="insight-title">DMA and FRM account for 98.8% of Broken — both feed the B2B-DMA export channel</div>
-                <div class="insight-body">185,887 DMA and 68,858 FRM units (255,010 Broken total) are routed to UPT Inc and Calvary Corp via the B2B-DMA channel and to Recycling. The Night shift expansion in Jan–Mar 2026 correlates with the period of highest Broken volume, suggesting Night was dedicated to damage classification.</div>
+                <div class="insight-title">DMA and FRM account for 98.8% of Broken — both feed the B2B-SLG export channel</div>
+                <div class="insight-body">185,887 DMA and 68,858 FRM units (255,010 Broken total) are routed to UPT Inc and Calvary Corp via the B2B-SLG channel and to Recycling. The Night shift expansion in Jan–Mar 2026 correlates with the period of highest Broken volume, suggesting Night was dedicated to damage classification.</div>
               </div>
 
               <div class="insight-card">
@@ -895,19 +895,19 @@
       </div><!-- /panel-6 -->
 
       <!-- ══════════════════════════════════════════════════════
-           TAB 7 — B2B-DMA (report_b2b_dma.html)
+           TAB 7 — B2B-SLG (report_b2b_dma.html)
       ══════════════════════════════════════════════════════ -->
       <div class="tab-panel" id="panel-7" role="tabpanel">
         <div class="card">
 
           <div class="card-header">
-            <h1>B2B-DMA Shipments by Month — UPT Inc vs. Calvary Corp</h1>
-            <p>B2B DMA Channel · Jul 2025 – May 2026 · 39,686 units shipped</p>
+            <h1>B2B-SLG Shipments by Month — UPT Inc vs. Calvary Corp</h1>
+            <p>B2B SLG Channel · Jul 2025 – May 2026 · 39,686 units shipped</p>
           </div>
 
           <div class="kpi-hero">
             <span class="kpi-value">39,686</span>
-            <span class="kpi-label">Total DMA TV Exports</span>
+            <span class="kpi-label">Total SLG TV Exports</span>
           </div>
 
           <div class="chart-wrapper">
@@ -945,8 +945,8 @@
 
               <div class="insight-card">
                 <div class="insight-label">Client Mix</div>
-                <div class="insight-title">UPT Inc drives 88.2% of DMA volume — Calvary joined in Jan 2026</div>
-                <div class="insight-body">UPT Inc has been the sole DMA client since July 2025 with 34,988 units across 11 months. Calvary Corp entered in January 2026 and added 4,698 units over 4 months, expanding total DMA capacity without displacing UPT volume.</div>
+                <div class="insight-title">UPT Inc drives 88.2% of SLG volume — Calvary joined in Jan 2026</div>
+                <div class="insight-body">UPT Inc has been the sole SLG client since July 2025 with 34,988 units across 11 months. Calvary Corp entered in January 2026 and added 4,698 units over 4 months, expanding total SLG capacity without displacing UPT volume.</div>
               </div>
 
               <div class="insight-card">
@@ -963,7 +963,7 @@
 
               <div class="insight-card">
                 <div class="insight-label">Trend</div>
-                <div class="insight-title">Combined DMA volume stabilizing around 3,400 units/month in 2026</div>
+                <div class="insight-title">Combined SLG volume stabilizing around 3,400 units/month in 2026</div>
                 <div class="insight-body">Excluding the January 2026 spike, the Feb–May 2026 average is 3,403 combined units/month (UPT + Calvary). UPT's baseline has recovered to ~2,500–3,700/month after the post-January dip, consistent with its H2 2025 pace.</div>
               </div>
 
@@ -1723,27 +1723,27 @@
     var SERIES = {
       "B2B":               [5237, 8339, 6198, 6528, 9969, 7230, 7258, 7099, 3043, 4335, 6004],
       "Direct Fulfillment":               [  53,  147,  143,   66,  169,  245,  339,  357,  216,   27,   88],
-      "CALVARY (B2B DMA)": [   0,    0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0],
+      "CALVARY (B2B SLG)": [   0,    0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0],
       "FBA":               [1949, 4132, 2646, 6220, 4670, 4303, 2894, 4962, 6428, 9305, 2800],
       "FULL":              [ 562, 2357, 1465, 3324, 4872, 2622, 2663, 3905, 1545, 1072, 1408],
       "Internal Use":      [  10,    2,    8,   33,   87,    4,   45,   16,  242,   50,    9],
       "Recycling":         [   0,    0,    0,    0,    0,    0,    0, 7978,18135,17136,14637],
       "TRG Returns - HV":  [   0,    0,    0,    0, 1311, 2864, 1722, 9492, 8200, 2836, 3017],
       "TRG Returns - TVs": [   0,  673,  681, 5836, 4811, 6160,25842,10396,10881, 6368,10992],
-      "UPT (B2B DMA)":     [1757,  945, 2494, 4629, 4526, 4282, 6398, 1433, 3669, 2429, 2426]
+      "UPT (B2B SLG)":     [1757,  945, 2494, 4629, 4526, 4282, 6398, 1433, 3669, 2429, 2426]
     };
 
     var TOTALS = {
       "B2B":               71240,
       "Direct Fulfillment":                1850,
-      "CALVARY (B2B DMA)":  4698,
+      "CALVARY (B2B SLG)":  4698,
       "FBA":               50309,
       "FULL":              25795,
       "Internal Use":        506,
       "Recycling":         57886,
       "TRG Returns - HV":  29442,
       "TRG Returns - TVs": 82640,
-      "UPT (B2B DMA)":     34988
+      "UPT (B2B SLG)":     34988
     };
 
     var GRAND_TOTAL = 359354;
@@ -1855,7 +1855,7 @@
   }
 
   // ════════════════════════════════════════════════════════
-  // TAB 6 — B2B-DMA
+  // TAB 6 — B2B-SLG
   // ════════════════════════════════════════════════════════
   function initTab6() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
