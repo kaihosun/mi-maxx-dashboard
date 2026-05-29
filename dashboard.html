@@ -390,7 +390,7 @@
       <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="panel-1" onclick="showTab(1)">Incoming</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-2" onclick="showTab(2)">Sorting</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-3" onclick="showTab(3)">FFT</button>
-      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">OpenCell Dept.</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-4" onclick="showTab(4)">OpenCell</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-5" onclick="showTab(5)">B2B</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-6" onclick="showTab(6)">B2B-SLG</button>
       <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-7" onclick="showTab(7)">B2C</button>
@@ -671,6 +671,7 @@
                 <tr>
                   <th>Month</th>
                   <th>Screen Swaps</th>
+                  <th>Panels In</th>
                   <th>Repairs: Onn</th>
                   <th>Repairs: Vizio</th>
                   <th>Repairs: Resto</th>
@@ -682,6 +683,7 @@
                 <tr>
                   <td>Grand Total</td>
                   <td>22,297</td>
+                  <td>11,110</td>
                   <td>5,070</td>
                   <td>3,833</td>
                   <td>6,170</td>
@@ -1604,15 +1606,32 @@
       }
     });
 
+    // Panels received per month (actual arrivals)
+    var PANELS = {
+      "2026-02": 2214,
+      "2026-03": 6816,
+      "2026-05": 2080
+    };
+
     // Build table
     var tbody = document.getElementById("tab4TableBody");
     MONTHS_RAW.forEach(function(ym, i) {
       var tr = document.createElement("tr");
       var isJan = ym === "2026-01";
       if (isJan) tr.className = "muted";
+      var panels = PANELS[ym] || 0;
+      var panelCell;
+      if (panels > 0) {
+        panelCell = "<td style='color:#1e5f99;font-weight:600'>+" + panels.toLocaleString() + "</td>";
+      } else if (isJan) {
+        panelCell = "<td style='color:#c0392b;font-weight:600'>0 — no stock</td>";
+      } else {
+        panelCell = "<td style='color:#888'>—</td>";
+      }
       tr.innerHTML =
         "<td>" + formatMonth(ym) + (isJan ? " (lack of screens)" : "") + "</td>" +
         "<td>" + OPENCELL[i].toLocaleString() + "</td>" +
+        panelCell +
         "<td>" + ONN[i].toLocaleString() + "</td>" +
         "<td>" + VIZIO[i].toLocaleString() + "</td>" +
         "<td>" + RESTO[i].toLocaleString() + "</td>" +
