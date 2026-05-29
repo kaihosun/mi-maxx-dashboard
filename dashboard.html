@@ -829,7 +829,7 @@
           </div>
 
           <div class="kpi-hero">
-            <span class="kpi-value">359,354</span>
+            <span class="kpi-value">281,400</span>
             <span class="kpi-label">Total Sales by Market Segment</span>
           </div>
 
@@ -982,13 +982,13 @@
         <div class="card">
 
           <div class="card-header">
-            <h1>B2C TV Orders by Month — MercadoLibre vs. Amazon</h1>
-            <p>Shipping B2C · Jul 2025 – May 2026 · 40,526 units shipped</p>
+            <h1>B2C Sales by Channel — Daily Orders &amp; Bulk Shipments</h1>
+            <p>Shipping B2C · Jul 2025 – May 2026 · 118,480 units shipped</p>
           </div>
 
           <div class="kpi-hero">
-            <span class="kpi-value">40,526</span>
-            <span class="kpi-label">Total e-Commerce Fulfilled Sales</span>
+            <span class="kpi-value">118,480</span>
+            <span class="kpi-label">Total B2C Units Shipped</span>
           </div>
 
           <div class="chart-wrapper">
@@ -1001,11 +1001,12 @@
               <thead>
                 <tr>
                   <th>Month</th>
-                  <th>MercadoLibre</th>
-                  <th>Amazon</th>
-                  <th>Other</th>
+                  <th>ML · Daily</th>
+                  <th>ML · FULL (Bulk)</th>
+                  <th>Amazon · Daily</th>
+                  <th>Amazon · FBA (Bulk)</th>
+                  <th>Direct Fulfillment</th>
                   <th>Total</th>
-                  <th>ML %</th>
                 </tr>
               </thead>
               <tbody id="tab7TableBody"></tbody>
@@ -1013,10 +1014,11 @@
                 <tr>
                   <td>Grand Total</td>
                   <td>26,372</td>
+                  <td>25,795</td>
                   <td>14,108</td>
-                  <td>46</td>
-                  <td>40,526</td>
-                  <td>65.1%</td>
+                  <td>50,309</td>
+                  <td>1,850</td>
+                  <td>118,480</td>
                 </tr>
               </tfoot>
             </table>
@@ -1028,8 +1030,8 @@
 
               <div class="insight-card">
                 <div class="insight-label">Channel Mix</div>
-                <div class="insight-title">MercadoLibre leads B2C — 65.1% of all units shipped</div>
-                <div class="insight-body">MercadoLibre accounts for 26,372 of 40,526 units across 11 months, consistently outpacing Amazon in every single month. Amazon (14,108 units, 34.8%) operates through Autobot seller accounts. Other channels total just 46 units.</div>
+                <div class="insight-title">118,480 total B2C units — MercadoLibre leads on both daily orders and FULL bulk</div>
+                <div class="insight-body">MercadoLibre accounts for 52,167 units (44.0%): 26,372 daily orders + 25,795 FULL bulk shipments. Amazon accounts for 64,417 units (54.4%): 14,108 daily orders + 50,309 FBA bulk. Direct Fulfillment adds 1,850 units via off-platform resolutions. Bulk shipments (FBA + FULL) represent 64.5% of total B2C volume.</div>
               </div>
 
               <div class="insight-card">
@@ -1722,10 +1724,7 @@
 
     var SERIES = {
       "B2B":               [5237, 8339, 6198, 6528, 9969, 7230, 7258, 7099, 3043, 4335, 6004],
-      "Direct Fulfillment":               [  53,  147,  143,   66,  169,  245,  339,  357,  216,   27,   88],
       "CALVARY (B2B SLG)": [   0,    0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0],
-      "FBA":               [1949, 4132, 2646, 6220, 4670, 4303, 2894, 4962, 6428, 9305, 2800],
-      "FULL":              [ 562, 2357, 1465, 3324, 4872, 2622, 2663, 3905, 1545, 1072, 1408],
       "Internal Use":      [  10,    2,    8,   33,   87,    4,   45,   16,  242,   50,    9],
       "Recycling":         [   0,    0,    0,    0,    0,    0,    0, 7978,18135,17136,14637],
       "TRG Returns - HV":  [   0,    0,    0,    0, 1311, 2864, 1722, 9492, 8200, 2836, 3017],
@@ -1735,10 +1734,7 @@
 
     var TOTALS = {
       "B2B":               71240,
-      "Direct Fulfillment":                1850,
       "CALVARY (B2B SLG)":  4698,
-      "FBA":               50309,
-      "FULL":              25795,
       "Internal Use":        506,
       "Recycling":         57886,
       "TRG Returns - HV":  29442,
@@ -1746,14 +1742,11 @@
       "UPT (B2B SLG)":     34988
     };
 
-    var GRAND_TOTAL = 359354;
+    var GRAND_TOTAL = 281400;
 
     var PALETTE = [
       "#3d7ebf",
-      "#5aafa0",
       "#e07b6a",
-      "#7a6bbf",
-      "#4fa37a",
       "#c47a3a",
       "#5888a8",
       "#a85a7a",
@@ -1777,7 +1770,7 @@
 
     datasets.push({
       type: "line", label: "Total",
-      data: [9568,16595,13635,26636,30415,27710,48775,46740,53367,44532,41381],
+      data: [7004,9959,9381,17026,20704,20540,42879,37516,45178,34128,37085],
       borderColor: "#c0392b", backgroundColor: "transparent",
       borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
       pointBorderColor: "#fff", pointBorderWidth: 1.5,
@@ -1966,9 +1959,14 @@
   // ════════════════════════════════════════════════════════
   function initTab7() {
     var MONTHS_RAW = ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var ML    = [1892, 1685, 2047, 2324, 3882, 2454, 2464, 2604, 2388, 2508, 2124];
-    var AMAZON = [1186, 836, 826, 1304, 2570, 1733, 1153, 1084, 1498, 904, 1014];
-    var OTHER  = [0, 4, 0, 0, 6, 28, 5, 0, 3, 0, 0];
+    // Daily fulfilled
+    var ML_DAILY  = [1892, 1685, 2047, 2324, 3882, 2454, 2464, 2604, 2388, 2508, 2124];
+    var AMZ_DAILY = [1186,  836,  826, 1304, 2570, 1733, 1153, 1084, 1498,  904, 1014];
+    var OTHER     = [   0,    4,    0,    0,    6,   28,    5,    0,    3,    0,    0];
+    // Bulk shipments
+    var ML_FULL   = [ 562, 2357, 1465, 3324, 4872, 2622, 2663, 3905, 1545, 1072, 1408];
+    var AMZ_FBA   = [1949, 4132, 2646, 6220, 4670, 4303, 2894, 4962, 6428, 9305, 2800];
+    var DIR_FULFL = [  53,  147,  143,   66,  169,  245,  339,  357,  216,   27,   88];
     var LABELS = MONTHS_RAW.map(formatMonth);
 
     var ctx = document.getElementById("tab7Chart").getContext("2d");
@@ -1978,36 +1976,48 @@
         labels: LABELS,
         datasets: [
           {
-            label: "MercadoLibre",
-            data: ML,
+            label: "ML · Daily Orders",
+            data: ML_DAILY,
             backgroundColor: "#5aafa0",
-            borderRadius: 2,
-            borderSkipped: false,
-            order: 2
+            borderRadius: 2, borderSkipped: false, order: 6
           },
           {
-            label: "Amazon",
-            data: AMAZON,
+            label: "ML · FULL (Bulk)",
+            data: ML_FULL,
+            backgroundColor: "#2d7a6a",
+            borderRadius: 2, borderSkipped: false, order: 5
+          },
+          {
+            label: "Amazon · Daily Orders",
+            data: AMZ_DAILY,
             backgroundColor: "#1e5f99",
-            borderRadius: 2,
-            borderSkipped: false,
-            order: 1
+            borderRadius: 2, borderSkipped: false, order: 4
+          },
+          {
+            label: "Amazon · FBA (Bulk)",
+            data: AMZ_FBA,
+            backgroundColor: "#5888c8",
+            borderRadius: 2, borderSkipped: false, order: 3
+          },
+          {
+            label: "Direct Fulfillment",
+            data: DIR_FULFL,
+            backgroundColor: "#c47a3a",
+            borderRadius: 2, borderSkipped: false, order: 2
           },
           {
             label: "Other",
             data: OTHER,
             backgroundColor: "#c9c9c9",
-            borderRadius: 2,
-            borderSkipped: false,
-            order: 0
+            borderRadius: 2, borderSkipped: false, order: 1
           },
           {
             type: "line", label: "Total",
-            data: [3078,2525,2873,3628,6458,4215,3622,3688,3889,3412,3138],
+            data: [5642,9161,7127,13238,16169,11385,9518,12912,12078,13816,7434],
             borderColor: "#c0392b", backgroundColor: "transparent",
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
-            tension: 0.3, fill: false, order: -1,
+            tension: 0.3, fill: false, order: 0,
             datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
               font: { size: 10, weight: "600" },
               formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
@@ -2037,8 +2047,9 @@
                 return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
               },
               footer: function(items) {
-                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
-                return "Total: " + total.toLocaleString();
+                var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
+                var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                return total > 0 ? "Total: " + total.toLocaleString() : null;
               }
             }
           }
@@ -2062,19 +2073,21 @@
     // Build table
     var tbody = document.getElementById("tab7TableBody");
     MONTHS_RAW.forEach(function(ym, i) {
-      var ml = ML[i];
-      var amz = AMAZON[i];
-      var oth = OTHER[i];
-      var total = ml + amz + oth;
-      var pct = ((ml / total) * 100).toFixed(1);
+      var mld  = ML_DAILY[i];
+      var mlf  = ML_FULL[i];
+      var amzd = AMZ_DAILY[i];
+      var fba  = AMZ_FBA[i];
+      var dir  = DIR_FULFL[i];
+      var total = mld + mlf + amzd + fba + dir + OTHER[i];
       var tr = document.createElement("tr");
       tr.innerHTML =
         "<td>" + formatMonth(ym) + "</td>" +
-        "<td>" + ml.toLocaleString() + "</td>" +
-        "<td>" + amz.toLocaleString() + "</td>" +
-        "<td>" + (oth > 0 ? oth.toLocaleString() : "—") + "</td>" +
-        "<td>" + total.toLocaleString() + "</td>" +
-        "<td>" + pct + "%</td>";
+        "<td>" + mld.toLocaleString() + "</td>" +
+        "<td>" + mlf.toLocaleString() + "</td>" +
+        "<td>" + amzd.toLocaleString() + "</td>" +
+        "<td>" + fba.toLocaleString() + "</td>" +
+        "<td>" + dir.toLocaleString() + "</td>" +
+        "<td>" + total.toLocaleString() + "</td>";
       tbody.appendChild(tr);
     });
   }
