@@ -1515,6 +1515,8 @@
     var VIZIO    = [ 172,   41,  147,  305,  332,  198,  292,  343,  363,  670,  970];
     var RESTO    = [ 449,  642,  486,  571,  796,  308,  317,  328,  386,  788, 1099];
     var TOTAL    = [2473, 3825, 3336, 4086, 3439, 2183, 1085, 3199, 5532, 4682, 3530];
+    // Avg HC/day — real data starts Oct 2025; Jul-Sep = null
+    var AVG_HC   = [null, null, null, 26.4, 22.1, 17.7, 29.0, 33.4, 24.5, 24.5, 20.8];
     var LABELS = MONTHS_RAW.map(formatMonth);
 
     var ctx = document.getElementById("tab4Chart").getContext("2d");
@@ -1527,25 +1529,29 @@
             label: "Repairs: Resto",
             data: RESTO,
             backgroundColor: "#c9d8e8",
-            borderRadius: 2, borderSkipped: false, order: 5
+            borderRadius: 2, borderSkipped: false, order: 5,
+            yAxisID: "yLeft"
           },
           {
             label: "Repairs: Vizio",
             data: VIZIO,
             backgroundColor: "#5aafa0",
-            borderRadius: 2, borderSkipped: false, order: 4
+            borderRadius: 2, borderSkipped: false, order: 4,
+            yAxisID: "yLeft"
           },
           {
             label: "Repairs: Onn",
             data: ONN,
             backgroundColor: "#1e5f99",
-            borderRadius: 2, borderSkipped: false, order: 3
+            borderRadius: 2, borderSkipped: false, order: 3,
+            yAxisID: "yLeft"
           },
           {
             label: "Screen Swaps",
             data: OPENCELL,
             backgroundColor: "#4fa37a",
-            borderRadius: 2, borderSkipped: false, order: 2
+            borderRadius: 2, borderSkipped: false, order: 2,
+            yAxisID: "yLeft"
           },
           {
             type: "line", label: "Total",
@@ -1554,9 +1560,22 @@
             borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
             pointBorderColor: "#fff", pointBorderWidth: 1.5,
             tension: 0.3, fill: false, order: 0,
+            yAxisID: "yLeft",
             datalabels: { display: true, align: "top", anchor: "end", color: "#c0392b",
               font: { size: 10, weight: "600" },
               formatter: function(v) { return v >= 1000 ? (v/1000).toFixed(1)+"k" : v; } }
+          },
+          {
+            type: "line", label: "Avg Headcount / Day",
+            data: AVG_HC,
+            borderColor: "#e07b39", backgroundColor: "transparent",
+            borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#e07b39",
+            pointBorderColor: "#fff", pointBorderWidth: 1.5,
+            tension: 0.3, fill: false, order: 1,
+            yAxisID: "yRight", spanGaps: false,
+            datalabels: { display: true, align: "top", anchor: "end", color: "#e07b39",
+              font: { size: 10, weight: "600" },
+              formatter: function(v) { return v !== null ? v : ""; } }
           }
         ]
       },
@@ -1580,10 +1599,13 @@
             callbacks: {
               label: function(context) {
                 var v = context.parsed.y;
+                if (context.dataset.label === "Avg Headcount / Day") {
+                  return v !== null ? " Headcount: " + v + " people/day" : null;
+                }
                 return v > 0 ? " " + context.dataset.label + ": " + v.toLocaleString() : null;
               },
               footer: function(items) {
-                var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
+                var bars = items.filter(function(i){ return i.dataset.yAxisID === "yLeft" && i.dataset.type !== "line"; });
                 var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
                 return total > 0 ? "Total: " + total.toLocaleString() : null;
               }
@@ -1592,7 +1614,8 @@
         },
         scales: {
           x: { stacked: true, grid: { color: "#e0e0e0" }, ticks: { color: "#444", font: { size: 11 } } },
-          y: {
+          yLeft: {
+            type: "linear", position: "left",
             stacked: true,
             beginAtZero: true,
             grid: { color: "#e0e0e0" },
@@ -1601,6 +1624,13 @@
               callback: function(v) { return v >= 1000 ? (v / 1000).toFixed(0) + "k" : v; }
             },
             title: { display: true, text: "Units", color: "#555", font: { size: 11 } }
+          },
+          yRight: {
+            type: "linear", position: "right",
+            beginAtZero: true,
+            grid: { drawOnChartArea: false },
+            ticks: { color: "#e07b39", font: { size: 11 } },
+            title: { display: true, text: "Avg Headcount / Day", color: "#e07b39", font: { size: 11 } }
           }
         }
       }
@@ -1625,6 +1655,8 @@
         panelCell = "<td style='color:#1e5f99;font-weight:600'>+" + panels.toLocaleString() + "</td>";
       } else if (isJan) {
         panelCell = "<td style='color:#c0392b;font-weight:600'>0 — no stock</td>";
+      } else if (ym <= "2025-12") {
+        panelCell = "<td style='color:#888;font-style:italic'>old stock</td>";
       } else {
         panelCell = "<td style='color:#888'>—</td>";
       }
@@ -1647,14 +1679,14 @@
   // ════════════════════════════════════════════════════════
   function initOpenCellHC() {
     var MONTHS_RAW = ["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
-    var OC_HC   = [ 94, 190, 207,  56, 137, 191, 158,  47];
-    var DMT_HC  = [ 38, 229,  71, 182,  82,  94, 198, 246];
-    var FFT_HC  = [  0,   0,  23,  32,  77,  77,  54,  22];
-    var VER_HC  = [  0,   0,   0,   0,  75,  67,   0,  21];
-    var KIT_HC  = [  0,   0,   0,   0,   0,  65, 129,  80];
-    var SORT_HC = [  0,   0,   0,  45,  23,   0,   0,   0];
-    var DMA_HC  = [  0,   0,   0,  62,   0,   0,   0,   0];
-    var TOTAL   = [132, 419, 301, 377, 394, 494, 539, 416];
+    var OC_HC   = [18.8, 10.0, 12.2,  2.7,  8.1,  9.1,  7.2,  2.4];
+    var DMT_HC  = [ 7.6, 12.1,  4.2,  8.7,  4.8,  4.5,  9.0, 12.3];
+    var FFT_HC  = [ 0.0,  0.0,  1.4,  1.5,  4.5,  3.7,  2.5,  1.1];
+    var VER_HC  = [ 0.0,  0.0,  0.0,  0.0,  4.4,  3.2,  0.0,  1.1];
+    var KIT_HC  = [ 0.0,  0.0,  0.0,  0.0,  0.0,  3.1,  5.9,  4.0];
+    var SORT_HC = [ 0.0,  0.0,  0.0,  2.1,  1.4,  0.0,  0.0,  0.0];
+    var DMA_HC  = [ 0.0,  0.0,  0.0,  3.0,  0.0,  0.0,  0.0,  0.0];
+    var TOTAL   = [26.4, 22.1, 17.7, 29.0, 33.4, 24.5, 24.5, 20.8];
     var LABELS  = MONTHS_RAW.map(formatMonth);
 
     var ctx = document.getElementById("tab4HCChart").getContext("2d");
@@ -1696,12 +1728,12 @@
             callbacks: {
               label: function(context) {
                 var v = context.parsed.y;
-                return v > 0 ? " " + context.dataset.label + ": " + v + " person-days" : null;
+                return v > 0 ? " " + context.dataset.label + ": " + v.toFixed(1) + " people/day" : null;
               },
               footer: function(items) {
                 var bars = items.filter(function(i){ return i.dataset.type !== "line"; });
                 var total = bars.reduce(function(s, i) { return s + i.parsed.y; }, 0);
-                return total > 0 ? "Total: " + total + " person-days" : null;
+                return total > 0 ? "Avg total: " + total.toFixed(1) + " people/day" : null;
               }
             }
           }
@@ -1711,7 +1743,7 @@
           y: {
             stacked: true, beginAtZero: true, grid: { color: "#e0e0e0" },
             ticks: { color: "#444", font: { size: 11 } },
-            title: { display: true, text: "Person-Days Assigned", color: "#555", font: { size: 11 } }
+            title: { display: true, text: "Avg Headcount / Day", color: "#555", font: { size: 11 } }
           }
         }
       }
