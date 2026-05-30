@@ -774,7 +774,7 @@
           </div>
 
           <div class="kpi-hero">
-            <span class="kpi-value">281,400</span>
+            <span class="kpi-value">280,894</span>
             <span class="kpi-label">Total Sales by Market Segment</span>
           </div>
 
@@ -834,7 +834,7 @@
             </div>
           </div>
 
-          <p class="footer-note">Note: "Interal Use" (typo in source) merged into "Internal Use". Rows with 0 units included in axis.</p>
+          <p class="footer-note">Note: BULKY shipments are not included in these figures. Rows with 0 units included in axis.</p>
 
         </div>
       </div><!-- /panel-5 -->
@@ -1759,7 +1759,6 @@
     var SERIES = {
       "B2B":               [5237, 8339, 6198, 6528, 9969, 7230, 7258, 7099, 3043, 4335, 6004],
       "CALVARY (B2B SLG)": [   0,    0,    0,    0,    0,    0, 1614, 1102, 1008,  974,    0],
-      "Internal Use":      [  10,    2,    8,   33,   87,    4,   45,   16,  242,   50,    9],
       "Recycling":         [   0,    0,    0,    0,    0,    0,    0, 7978,18135,17136,14637],
       "TRG Returns - HV":  [   0,    0,    0,    0, 1311, 2864, 1722, 9492, 8200, 2836, 3017],
       "TRG Returns - TVs": [   0,  673,  681, 5836, 4811, 6160,25842,10396,10881, 6368,10992],
@@ -1769,19 +1768,17 @@
     var TOTALS = {
       "B2B":               71240,
       "CALVARY (B2B SLG)":  4698,
-      "Internal Use":        506,
       "Recycling":         57886,
       "TRG Returns - HV":  29442,
       "TRG Returns - TVs": 82640,
       "UPT (B2B SLG)":     34988
     };
 
-    var GRAND_TOTAL = 281400;
+    var GRAND_TOTAL = 280894;
 
     var PALETTE = [
       "#3d7ebf",
       "#e07b6a",
-      "#c47a3a",
       "#5888a8",
       "#a85a7a",
       "#7aaa5a",
@@ -1804,7 +1801,7 @@
 
     datasets.push({
       type: "line", label: "Total",
-      data: [7004,9959,9381,17026,20704,20540,42879,37516,45178,34128,37085],
+      data: [6994,9957,9373,16993,20617,20536,42834,37500,44936,34078,37076],
       borderColor: "#c0392b", backgroundColor: "transparent",
       borderWidth: 2, pointRadius: 5, pointBackgroundColor: "#c0392b",
       pointBorderColor: "#fff", pointBorderWidth: 1.5,
